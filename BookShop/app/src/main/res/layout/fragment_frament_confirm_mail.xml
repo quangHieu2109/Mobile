@@ -45,21 +45,16 @@
 
         />
 
-        <com.mukeshsolanki.OtpView
+        <com.noobcode.otpview.OTPView
             android:id="@+id/otp"
-
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="72dp"
-            android:inputType="text"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            app:OtpHideLineWhenFilled="true"
-            app:OtpItemCount="6"
-            app:OtpItemSpacing="10dp"
-            app:OtpState_filled="true"
-            app:OtpViewType="line" />
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            app:borderThickness="2"
+            app:otpLength="6"
+            app:spaceBetween="16"
+            />
 
         <TextView
             android:layout_width="wrap_content"

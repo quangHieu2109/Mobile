@@ -53,6 +53,7 @@
         <EditText
             android:textColor="@color/white"
             android:id="@+id/email"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"

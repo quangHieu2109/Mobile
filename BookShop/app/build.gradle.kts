@@ -39,7 +39,8 @@ dependencies {
     implementation("androidx.activity:activity:1.8.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview-compose:3.1.0")
-    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview:3.1.0")
+    implementation ("com.github.criminact:OTPView:1.0.3")
+//    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview-compose:3.1.0")
+//    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview:3.1.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
