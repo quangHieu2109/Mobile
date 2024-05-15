@@ -26,7 +26,6 @@ public class MainApp extends AppCompatActivity {
         if(btnLogin != null){
             btnLogin.setOnClickListener(v -> {
                 startActivity(new Intent(this, LoginActivity.class));
-
             });
         }
     }
