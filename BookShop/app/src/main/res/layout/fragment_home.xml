@@ -27,17 +27,20 @@
             android:layout_height="wrap_content"
             android:text="BookShop"/>
         <LinearLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-           <Button
+           <ImageButton
                android:layout_marginHorizontal="10dp"
                android:id="@+id/btn_search"
                android:layout_width="50dp"
                android:layout_height="wrap_content"
                android:background="@drawable/ic_search"/>
-           <Button
+           <ImageButton
+               android:layout_gravity="center"
                android:id="@+id/btn_notification"
                android:layout_width="44dp"
                android:layout_height="40dp"

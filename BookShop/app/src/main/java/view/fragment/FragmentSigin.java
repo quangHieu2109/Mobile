@@ -70,9 +70,11 @@ public class FragmentSigin extends Fragment {
         return view;
     }
     private void setBtnClickListeners() {
+
         btnForgetPass.setOnClickListener(v -> {
           getActivity().getSupportFragmentManager().beginTransaction()
                   .replace(R.id.container, new FragmentForgetPass())
+                  .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                   .addToBackStack("fragmentForgetPass")
                   .commit();
         });

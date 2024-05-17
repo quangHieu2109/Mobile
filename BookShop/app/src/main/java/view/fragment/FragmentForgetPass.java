@@ -72,6 +72,7 @@ public class FragmentForgetPass extends Fragment {
         btnContinute.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new FramentConfirmMail())
+                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack("fragmentConfirmEmail")
                     .commit();
         });

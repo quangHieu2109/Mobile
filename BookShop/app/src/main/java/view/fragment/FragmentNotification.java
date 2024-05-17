@@ -13,11 +13,11 @@ import com.example.bookshop.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FramentConfirmMail#newInstance} factory method to
+ * Use the {@link FragmentNotification#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FramentConfirmMail extends Fragment {
-    Button btnConfirmMail;
+public class FragmentNotification extends Fragment {
+    Button btn_back;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +28,7 @@ public class FramentConfirmMail extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FramentConfirmMail() {
+    public FragmentNotification() {
         // Required empty public constructor
     }
 
@@ -38,11 +38,11 @@ public class FramentConfirmMail extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FramentConfirmMail.
+     * @return A new instance of fragment FragmentNotification.
      */
     // TODO: Rename and change types and number of parameters
-    public static FramentConfirmMail newInstance(String param1, String param2) {
-        FramentConfirmMail fragment = new FramentConfirmMail();
+    public static FragmentNotification newInstance(String param1, String param2) {
+        FragmentNotification fragment = new FragmentNotification();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,19 +62,15 @@ public class FramentConfirmMail extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_frament_confirm_mail, container, false);
+        View view = inflater.inflate(R.layout.fragment_notification, container, false);
         // Inflate the layout for this fragment
-        btnConfirmMail = view.findViewById(R.id.btn_confirm);
+        btn_back = view.findViewById(R.id.back);
         setBtnClickListeners();
         return view;
     }
     private void setBtnClickListeners() {
-        btnConfirmMail.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new FragmentCreateNewPassword())
-                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack("fragmentCreateNewPassword")
-                    .commit();
+        btn_back.setOnClickListener(v -> {
+            getActivity().getSupportFragmentManager().popBackStack();
         });
     }
 }

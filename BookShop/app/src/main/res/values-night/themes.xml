@@ -2,6 +2,11 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.BookShop" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
+        <item name="android:windowAnimationStyle">@style/ActivityAnimations</item>
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+    <style name="ActivityAnimations">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
     </style>
 </resources>

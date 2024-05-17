@@ -25,7 +25,10 @@ public class MainApp extends AppCompatActivity {
     public void setOnClickLogin(){
         if(btnLogin != null){
             btnLogin.setOnClickListener(v -> {
-                startActivity(new Intent(this, LoginActivity.class));
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
             });
         }
     }

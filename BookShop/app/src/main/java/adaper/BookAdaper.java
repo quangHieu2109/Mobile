@@ -35,7 +35,7 @@ public class BookAdaper extends RecyclerView.Adapter<BookAdaper.BookViewHolder> 
         if (book == null)
             return;
          holder.titleBook.setText(book.getTitle());
-        holder.imgBook.setImageBitmap(book.getImage());
+        holder.imgBook.setImageResource(R.drawable.book_harry);
     }
 
     @Override

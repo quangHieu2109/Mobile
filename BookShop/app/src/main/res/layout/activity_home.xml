@@ -15,10 +15,15 @@
 
 
         <ScrollView
-            android:id="@+id/fragment_container"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="8" />
+            android:layout_weight="9" >
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </ScrollView>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"

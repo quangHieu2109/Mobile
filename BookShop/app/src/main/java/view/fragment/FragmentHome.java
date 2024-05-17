@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.bookshop.R;
 
@@ -26,6 +28,7 @@ import model.Book;
  * create an instance of this fragment.
  */
 public class FragmentHome extends Fragment {
+    ImageButton btn_notification;
     private RecyclerView rcv_all_book,rcv_recommended,rcv_purchased,rcv_wishlist;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -95,8 +98,18 @@ public class FragmentHome extends Fragment {
         bookAdaperRecommended.setData(getData());
         bookAdaperPurchased.setData(getData());
         bookAdaperWishlist.setData(getData());
-
+        btn_notification = view.findViewById(R.id.btn_notification);
+        setBtnClickListeners();
         return view;
+    }
+    private void setBtnClickListeners() {
+        btn_notification.setOnClickListener(v -> {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new FragmentNotification())
+                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack("fragmentNotification")
+                    .commit();
+        });
     }
     private List<Book> getData() {
         List<Book> books = new ArrayList<>();
