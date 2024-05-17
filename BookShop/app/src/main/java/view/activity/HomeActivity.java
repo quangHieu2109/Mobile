@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.bookshop.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import view.fragment.FragmentDiscover;
 import view.fragment.FragmentHome;
 
 public class HomeActivity extends AppCompatActivity {
@@ -35,15 +36,13 @@ public class HomeActivity extends AppCompatActivity {
         }
         bottomNavigationView.setBackground(null);
 
-//        bottomNavigationView.setOnItemSelectedListener(item -> {
-//
-//            if (item.getItemId() == R.id.home) {
-//
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-//            }
-//            if (item.getItemId() == R.id.tools) {
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UtilityFragment()).commit();
-//            }
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.home) {
+                getSupportFragmentManager().beginTransaction().setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.fragment_container, new FragmentHome()).commit();
+            }
+            if (item.getItemId() == R.id.discover) {
+                getSupportFragmentManager().beginTransaction().setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.fragment_container, new FragmentDiscover()).commit();
+            }
 //            if (item.getItemId() == R.id.podcast) {
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PodcastFragment()).commit();
 //            }
@@ -52,8 +51,8 @@ public class HomeActivity extends AppCompatActivity {
 //            }
 //
 //
-//            return true;
-//        });
+            return true;
+        });
 
 
     }

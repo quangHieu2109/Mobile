@@ -1,7 +1,6 @@
 package view.fragment;
 
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.example.bookshop.R;
 
@@ -25,17 +22,14 @@ import model.Book;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHome#newInstance} factory method to
+ * Use the {@link FragmentDiscover#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentHome extends Fragment {
-    ImageButton btn_notification;
-    BookAdaper bookAdaperAllBook = new BookAdaper();
-    BookAdaper bookAdaperRecommended = new BookAdaper();
-    BookAdaper bookAdaperPurchased = new BookAdaper();
-    BookAdaper bookAdaperWishlist = new BookAdaper();
-    private RecyclerView rcv_all_book,rcv_recommended,rcv_purchased,rcv_wishlist;
-
+public class FragmentDiscover extends Fragment {
+    BookAdaper bookAdaperSelling = new BookAdaper();
+    BookAdaper bookAdaperCharts = new BookAdaper();
+    BookAdaper bookAdaperRelease = new BookAdaper();
+    private RecyclerView rcv_top_selling,rcv_top_charts,rcv_top_release;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,7 +39,7 @@ public class FragmentHome extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentHome() {
+    public FragmentDiscover() {
         // Required empty public constructor
     }
 
@@ -55,11 +49,11 @@ public class FragmentHome extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentHome.
+     * @return A new instance of fragment FragmentDiscover.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHome newInstance(String param1, String param2) {
-        FragmentHome fragment = new FragmentHome();
+    public static FragmentDiscover newInstance(String param1, String param2) {
+        FragmentDiscover fragment = new FragmentDiscover();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,37 +73,23 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_discover, container, false);
         // Inflate the layout for this fragment
-        rcv_all_book = view.findViewById(R.id.rcv_all_book);
-        rcv_recommended = view.findViewById(R.id.rcv_recommended);
-        rcv_purchased = view.findViewById(R.id.rcv_purchased);
-        rcv_wishlist = view.findViewById(R.id.rcv_wishlist);
+        rcv_top_selling = view.findViewById(R.id.rcv_top_selling);
+        rcv_top_charts = view.findViewById(R.id.rcv_top_charts);
+        rcv_top_release = view.findViewById(R.id.rcv_top_new_release);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+         rcv_top_selling.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcv_top_selling.setAdapter(bookAdaperSelling);
+        rcv_top_charts.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcv_top_charts.setAdapter(bookAdaperCharts);
+        rcv_top_release.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcv_top_release.setAdapter(bookAdaperRelease);
 
-        rcv_all_book.setLayoutManager(linearLayoutManager);
-        rcv_recommended.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rcv_purchased.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rcv_wishlist.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rcv_all_book.setAdapter(bookAdaperAllBook);
-        rcv_recommended.setAdapter(bookAdaperRecommended);
-        rcv_purchased.setAdapter(bookAdaperPurchased);
-        rcv_wishlist.setAdapter(bookAdaperWishlist);
         new LoadData().execute();
-        btn_notification = view.findViewById(R.id.btn_notification);
-        setBtnClickListeners();
         return view;
     }
-    private void setBtnClickListeners() {
-        btn_notification.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new FragmentNotification())
-                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack("fragmentNotification")
-                    .commit();
-        });
-    }
+
     public class LoadData extends AsyncTask<Void,Void,List<Book>> {
 
 
@@ -127,10 +107,9 @@ public class FragmentHome extends Fragment {
         @Override
         protected void onPostExecute(List<Book> books) {
             super.onPostExecute(books);
-            bookAdaperAllBook.setData(books);
-            bookAdaperRecommended.setData(books);
-            bookAdaperPurchased.setData(books);
-            bookAdaperWishlist.setData(books);
+            bookAdaperSelling.setData(books);
+            bookAdaperCharts.setData(books);
+            bookAdaperRelease.setData(books);
         }
     }
 }
