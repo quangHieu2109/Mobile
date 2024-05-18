@@ -2,7 +2,9 @@ package model;
 
 import android.graphics.Bitmap;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
     String title;
     private Bitmap image;
     private String author;

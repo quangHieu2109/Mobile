@@ -3,12 +3,9 @@
     <style name="Base.Theme.BookShop" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-<!--        <item name="android:windowAnimationStyle">@style/ActivityAnimations</item>-->
     </style>
 
     <style name="Theme.BookShop" parent="Base.Theme.BookShop" />
-<!--    <style name="ActivityAnimations">-->
-<!--        <item name="android:windowEnterAnimation">@anim/slide_in</item>-->
-<!--        <item name="android:windowExitAnimation">@anim/slide_out</item>-->
-<!--    </style>-->
+    <color name="back_ground">#191A21</color>
+    <color name="text_color">#FFF</color>
 </resources>

@@ -1,7 +1,6 @@
 package view.fragment;
 
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.bookshop.R;
@@ -20,7 +18,7 @@ import com.example.bookshop.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import adaper.BookAdaper;
+import adapter.BookAdapter;
 import model.Book;
 
 /**
@@ -29,11 +27,11 @@ import model.Book;
  * create an instance of this fragment.
  */
 public class FragmentHome extends Fragment {
-    ImageButton btn_notification;
-    BookAdaper bookAdaperAllBook = new BookAdaper();
-    BookAdaper bookAdaperRecommended = new BookAdaper();
-    BookAdaper bookAdaperPurchased = new BookAdaper();
-    BookAdaper bookAdaperWishlist = new BookAdaper();
+    ImageButton btn_notification,btn_search;
+    BookAdapter bookAdaperAllBook = new BookAdapter(getContext());
+    BookAdapter bookAdapterRecommended = new BookAdapter(getContext());
+    BookAdapter bookAdapterPurchased = new BookAdapter(getContext());
+    BookAdapter bookAdapterWishlist = new BookAdapter(getContext());
     private RecyclerView rcv_all_book,rcv_recommended,rcv_purchased,rcv_wishlist;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -93,11 +91,12 @@ public class FragmentHome extends Fragment {
         rcv_purchased.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rcv_wishlist.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rcv_all_book.setAdapter(bookAdaperAllBook);
-        rcv_recommended.setAdapter(bookAdaperRecommended);
-        rcv_purchased.setAdapter(bookAdaperPurchased);
-        rcv_wishlist.setAdapter(bookAdaperWishlist);
+        rcv_recommended.setAdapter(bookAdapterRecommended);
+        rcv_purchased.setAdapter(bookAdapterPurchased);
+        rcv_wishlist.setAdapter(bookAdapterWishlist);
         new LoadData().execute();
         btn_notification = view.findViewById(R.id.btn_notification);
+        btn_search = view.findViewById(R.id.btn_search);
         setBtnClickListeners();
         return view;
     }
@@ -107,6 +106,13 @@ public class FragmentHome extends Fragment {
                     .replace(R.id.fragment_container, new FragmentNotification())
                     .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack("fragmentNotification")
+                    .commit();
+        });
+        btn_search.setOnClickListener(v -> {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new FragmentSearch())
+                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack("fragmentSearch")
                     .commit();
         });
     }
@@ -128,9 +134,9 @@ public class FragmentHome extends Fragment {
         protected void onPostExecute(List<Book> books) {
             super.onPostExecute(books);
             bookAdaperAllBook.setData(books);
-            bookAdaperRecommended.setData(books);
-            bookAdaperPurchased.setData(books);
-            bookAdaperWishlist.setData(books);
+            bookAdapterRecommended.setData(books);
+            bookAdapterPurchased.setData(books);
+            bookAdapterWishlist.setData(books);
         }
     }
 }
