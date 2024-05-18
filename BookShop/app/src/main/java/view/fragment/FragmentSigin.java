@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.bookshop.R;
 
@@ -20,7 +21,8 @@ import view.activity.HomeActivity;
  * create an instance of this fragment.
  */
 public class FragmentSigin extends Fragment {
-    Button btnLoginByGoogle,btnForgetPass,btnSigin;
+    Button btnForgetPass,btnSigin;
+    ImageButton btnLoginByGoogle;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

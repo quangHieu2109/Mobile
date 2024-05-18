@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+
             android:text="Username / Email"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:backgroundTint="#DC8304"
             android:inputType="textEmailAddress"
             android:textColor="@color/white" />
@@ -73,7 +73,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
             android:text="Password"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -124,24 +123,27 @@ android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="or continute with" />
-        <Button
-            android:id="@+id/btn_login_gg"
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:gravity="center"
             android:layout_gravity="center"
-            android:textAlignment="center"
-            android:drawableTop="@drawable/icon_gg"
-            android:textSize="20sp"
-            android:layout_marginVertical="10dp"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:layout_marginHorizontal="20dp"
-            android:backgroundTint="#1F232B"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btn_login_gg"
+                android:layout_marginVertical="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icon_gg"
+                />
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
-
                 android:layout_marginBottom="50dp"
                 android:id="@+id/btn_sign_in"
                 android:layout_width="match_parent"
