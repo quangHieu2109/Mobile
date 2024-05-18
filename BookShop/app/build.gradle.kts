@@ -43,4 +43,5 @@ dependencies {
 //    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview-compose:3.1.0")
 //    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview:3.1.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("com.google.android.gms:play-services-auth:20.4.0")
 }

@@ -17,6 +17,7 @@ import view.fragment.FragmentSigin;
 public class LoginActivity extends AppCompatActivity {
     Button btnBackMain;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
         btnBackMain = findViewById(R.id.back);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new FragmentSigin()).addToBackStack("fragmentSigin")
@@ -45,5 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
             });
         }
+
+
     }
 }
