@@ -1,5 +1,6 @@
 package view.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -26,8 +28,14 @@ import com.google.android.gms.auth.api.identity.BeginSignInResult;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import view.activity.HomeActivity;
 
@@ -37,8 +45,9 @@ import view.activity.HomeActivity;
  * create an instance of this fragment.
  */
 public class FragmentSigin extends Fragment {
-    SignInClient signInClient;
-    BeginSignInRequest signInRequest;
+    GoogleSignInOptions gso;
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
+    GoogleSignInClient signInClient;
 
     Button btnForgetPass, btnSigin;
     ImageButton btnLoginByGoogle;
@@ -92,38 +101,24 @@ public class FragmentSigin extends Fragment {
         btnForgetPass = view.findViewById(R.id.btn_forgot_password);
         btnSigin = view.findViewById(R.id.btn_sign_in);
         btnLoginByGoogle = view.findViewById(R.id.btn_login_gg);
-        setBtnClickListeners();
-        signInClient = Identity.getSignInClient(getActivity());
-        signInRequest = BeginSignInRequest.builder()
-                .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
-                        .setSupported(true)
-                        .build())
-                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                        .setSupported(true)
-                        .setServerClientId(getString(R.string.web_client_id))
-                        .setFilterByAuthorizedAccounts(true)
-                        .build())
-                .setAutoSelectEnabled(true)
-                .build();
-        intentSender = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == getActivity().RESULT_OK) {
-                    try {
-                        SignInCredential credential = signInClient.getSignInCredentialFromIntent(result.getData());
-                        String idToken = credential.getGoogleIdToken();
-                        if (idToken != null) {
-                            String email = credential.getId();
-                            Toast.makeText(getActivity(), email, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        signInClient = GoogleSignIn.getClient(getActivity(), gso);
 
-            }
-        });
+        setBtnClickListeners();
+         someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult o) {
+                        if (o.getResultCode() == Activity.RESULT_OK) {
+                            Log.d("TAG", "onActivityResult: ");
+                            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(o.getData());
+                            handleSignInResult(task);
+                        }
+                    }
+                });
+
         return view;
+
     }
 
     private void setBtnClickListeners() {
@@ -140,25 +135,24 @@ public class FragmentSigin extends Fragment {
             startActivity(intent);
         });
         btnLoginByGoogle.setOnClickListener(v -> {
-            signInClient.beginSignIn(signInRequest).addOnSuccessListener(getActivity(), new OnSuccessListener<BeginSignInResult>() {
-                        @Override
-                        public void onSuccess(BeginSignInResult beginSignInResult) {
-                            try {
-                                IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(beginSignInResult.getPendingIntent().getIntentSender()).build();
-                                intentSender.launch(intentSenderRequest);
-                            } catch (Exception e) {
-                                Log.d("TAG", e.getLocalizedMessage());
-                            }
+            Intent signInIntent = signInClient.getSignInIntent();
+            someActivityResultLauncher.launch(signInIntent);
 
-                        }
-                    })
-                    .addOnFailureListener(getActivity(), new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("TAG", "Error signing in with Google: " + e.getMessage());
-                        }
-                    });
         });
+
+    }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+            Toast.makeText(getActivity(), "Welcome "+ account.getEmail(), Toast.LENGTH_SHORT).show();
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
+
+        }
     }
 
 
