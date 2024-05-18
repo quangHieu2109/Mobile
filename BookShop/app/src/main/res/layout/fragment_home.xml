@@ -1,5 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#191A21"
+    android:background="@color/back_ground"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +21,7 @@
             android:src="@drawable/ic_come"/>
         <TextView
             android:textSize="28sp"
-            android:textColor="#FFF"
+            android:textColor="@color/text_color"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
     <TextView
         android:layout_marginVertical="20dp"
         android:textStyle="bold"
-        android:textColor="#FFF"
+        android:textColor="@color/text_color"
         android:textSize="25sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
     <TextView
         android:layout_marginVertical="20dp"
         android:textStyle="bold"
-        android:textColor="#FFF"
+        android:textColor="@color/text_color"
         android:textSize="25sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
     <TextView
         android:layout_marginVertical="20dp"
         android:textStyle="bold"
-        android:textColor="#FFF"
+        android:textColor="@color/text_color"
         android:textSize="25sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

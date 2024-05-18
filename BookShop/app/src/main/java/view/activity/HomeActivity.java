@@ -12,12 +12,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.bookshop.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import model.Book;
+import view.fragment.FragmentBookDetail;
 import view.fragment.FragmentDiscover;
 import view.fragment.FragmentHome;
+import view.fragment.FragmentSearch;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements FragmentSearch.ISendData {
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,4 +60,14 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void sendData(Book book) {
+        FragmentBookDetail fragmentBookDetail = new FragmentBookDetail();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("book", book);
+        fragmentBookDetail.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.fragment_container,fragmentBookDetail).addToBackStack("fragmentBookDetail").commit();
+        }
+
 }

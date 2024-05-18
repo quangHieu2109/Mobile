@@ -17,7 +17,7 @@ import com.example.bookshop.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import adaper.BookAdaper;
+import adapter.BookAdapter;
 import model.Book;
 
 /**
@@ -26,9 +26,9 @@ import model.Book;
  * create an instance of this fragment.
  */
 public class FragmentDiscover extends Fragment {
-    BookAdaper bookAdaperSelling = new BookAdaper();
-    BookAdaper bookAdaperCharts = new BookAdaper();
-    BookAdaper bookAdaperRelease = new BookAdaper();
+    BookAdapter bookAdapterSelling = new BookAdapter(getContext());
+    BookAdapter bookAdapterCharts = new BookAdapter(getContext());
+    BookAdapter bookAdapterRelease = new BookAdapter(getContext());
     private RecyclerView rcv_top_selling,rcv_top_charts,rcv_top_release;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,11 +80,11 @@ public class FragmentDiscover extends Fragment {
         rcv_top_release = view.findViewById(R.id.rcv_top_new_release);
 
          rcv_top_selling.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rcv_top_selling.setAdapter(bookAdaperSelling);
+        rcv_top_selling.setAdapter(bookAdapterSelling);
         rcv_top_charts.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rcv_top_charts.setAdapter(bookAdaperCharts);
+        rcv_top_charts.setAdapter(bookAdapterCharts);
         rcv_top_release.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rcv_top_release.setAdapter(bookAdaperRelease);
+        rcv_top_release.setAdapter(bookAdapterRelease);
 
         new LoadData().execute();
         return view;
@@ -107,9 +107,9 @@ public class FragmentDiscover extends Fragment {
         @Override
         protected void onPostExecute(List<Book> books) {
             super.onPostExecute(books);
-            bookAdaperSelling.setData(books);
-            bookAdaperCharts.setData(books);
-            bookAdaperRelease.setData(books);
+            bookAdapterSelling.setData(books);
+            bookAdapterCharts.setData(books);
+            bookAdapterRelease.setData(books);
         }
     }
 }
