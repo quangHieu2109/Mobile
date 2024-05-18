@@ -11,7 +11,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="405dp"
+        android:layout_height="350dp"
         android:adjustViewBounds="true"
         android:src="@drawable/book_img" />
 
@@ -38,13 +38,14 @@
         android:gravity="center"
         android:text="The number one best book shop"/>
     <Button
+        android:gravity="center"
         android:paddingLeft="45dp"
         android:textAlignment="center"
         android:drawableLeft="@drawable/icon_gg"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="#1F232B"
         android:text="Continute with Google"/>
@@ -52,10 +53,10 @@
     <Button
         android:id="@+id/getStarted"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:backgroundTint="#F99200"
         android:layout_marginVertical="10dp"
         android:text="Get Started"/>
@@ -63,10 +64,10 @@
         android:id="@+id/login"
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="20dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:text="I Already have an account"
         android:layout_width="match_parent"
         android:backgroundTint="#34393F"
-        android:layout_height="70dp"/>
+        android:layout_height="60dp"/>
 
 </LinearLayout>
