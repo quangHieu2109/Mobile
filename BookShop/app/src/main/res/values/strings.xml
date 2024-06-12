@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BookShop</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="web_client_id">847546457050-0i16i95g131e3smcs5j3mofmon7n7b0o.apps.googleusercontent.com</string>
 </resources>

@@ -1,0 +1,101 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/back_ground"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="view.fragment.FragmentHome">
+
+<LinearLayout
+    android:layout_marginTop="13dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+
+        android:layout_marginVertical="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_come"/>
+        <TextView
+            android:textSize="28sp"
+            android:textColor="@color/text_color"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BookShop"/>
+        <LinearLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+           <ImageButton
+               android:layout_marginHorizontal="10dp"
+               android:id="@+id/btn_search"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:background="@drawable/ic_search"/>
+           <ImageButton
+               android:layout_gravity="center"
+               android:id="@+id/btn_notification"
+               android:layout_width="35dp"
+               android:layout_height="35dp"
+               android:background="@drawable/ic_notification"/>
+        </LinearLayout>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_all_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:layout_marginVertical="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recommended For You"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_recommended"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:layout_marginVertical="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="On Your Purchased"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_purchased"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:layout_marginVertical="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="On Your Wishlist"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_wishlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>
+
+
+</FrameLayout>
