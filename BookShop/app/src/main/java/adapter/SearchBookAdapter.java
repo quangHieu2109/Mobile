@@ -17,11 +17,12 @@ import com.example.bookshop.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.BookResponse;
 import model.Book;
 
-public class SearchBookAdapter extends ArrayAdapter<Book> {
-    List<Book> data;
-    public SearchBookAdapter(@NonNull Context context, int resource, @NonNull List<Book> objects) {
+public class SearchBookAdapter extends ArrayAdapter<BookResponse> {
+    List<BookResponse> data;
+    public SearchBookAdapter(@NonNull Context context, int resource, @NonNull List<BookResponse> objects) {
         super(context, resource, objects);
         data = new ArrayList<>(objects);//clone data
     }
@@ -35,10 +36,10 @@ public class SearchBookAdapter extends ArrayAdapter<Book> {
         }
         TextView textView = convertView.findViewById(R.id.title_book);
         ImageView imageView = convertView.findViewById(R.id.img_book);
-        Book book = getItem(position);
+        BookResponse book = getItem(position);
 
         imageView.setImageResource(R.drawable.book_harry);
-        textView.setText(book.getTitle());
+        textView.setText(book.getProduct().getName());
         return convertView;
     }
 
@@ -48,13 +49,13 @@ public class SearchBookAdapter extends ArrayAdapter<Book> {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                List<Book> filterData = new ArrayList<>();
+                List<BookResponse> filterData = new ArrayList<>();
                 if (constraint==null || constraint.length()==0){
                     filterData.addAll(data);
                 }else {
                     String filterPattern = constraint.toString().toLowerCase().trim();
-                    for (Book book : data){
-                        if (book.getTitle().toLowerCase().contains(filterPattern)){
+                    for (BookResponse book : data){
+                        if (book.getProduct().getName().toLowerCase().contains(filterPattern)){
                             filterData.add(book);
                         }
                     }
@@ -75,7 +76,7 @@ public class SearchBookAdapter extends ArrayAdapter<Book> {
 
             @Override
             public CharSequence convertResultToString(Object resultValue) {
-                return ((Book) resultValue).getTitle();
+                return ((Book) resultValue).getName();
             }
         };
     }

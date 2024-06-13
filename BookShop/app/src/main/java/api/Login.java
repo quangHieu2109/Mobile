@@ -1,16 +1,16 @@
 package api;
 
-public class Login {
-    private  String data;
-    private  String message;
-    private  boolean success;
-    public  String getData(){
-        return data;
+public class Login extends AApi<String>{
+    private static String token;
+
+    public Login(boolean status, String message, String data) {
+        super(status, message, data);
     }
-    public  String getMessage(){
-        return message;
+
+    public static void setToken(String _token){
+        token = _token;
     }
-    public  boolean isSuccess(){
-        return success;
+    public static String getToken(){
+        return token;
     }
 }

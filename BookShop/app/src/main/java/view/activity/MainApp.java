@@ -42,23 +42,6 @@ public class MainApp extends AppCompatActivity {
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                APIService.apiService.login(new LoginRequest("user1","123")).enqueue(new Callback<Login>() {
-                    @Override
-                    public void onResponse(Call<Login> call, Response<Login> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().isSuccess()){
-                                Log.d("Login", "onResponse: "+response.body().getData());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Login> call, Throwable t) {
-                        Log.d("Login", "onFailure: "+t.getMessage());
-                    }
-                });
-
-
             });
         }
     }
