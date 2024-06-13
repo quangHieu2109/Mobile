@@ -18,6 +18,7 @@ import view.fragment.FragmentBookDetail;
 import view.fragment.FragmentDiscover;
 import view.fragment.FragmentHome;
 import view.fragment.FragmentSearch;
+import view.fragment.FragmentWishlist;
 
 public class HomeActivity extends AppCompatActivity implements FragmentSearch.ISendData {
     DrawerLayout drawerLayout;
@@ -48,9 +49,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentSearch.IS
             if (item.getItemId() == R.id.discover) {
                 getSupportFragmentManager().beginTransaction().setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.fragment_container, new FragmentDiscover()).commit();
             }
-//            if (item.getItemId() == R.id.podcast) {
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PodcastFragment()).commit();
-//            }
+            if (item.getItemId() == R.id.whitelist) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentWishlist()).commit();
+            }
 //            if (item.getItemId() == R.id.menu) {
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
 //            }
