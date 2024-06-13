@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -57,6 +58,6 @@ public interface APIService {
     Call<AApi<List<BookResponse>>> getTopRelease();
     @GET("product/getRecommendByOrderRating/productId={productId}")
     Call<AApi<List<BookResponse>>> getRecommended(@Path("productId") long id);
-    @POST("Product/deleteWishList/productId={productId}")
+    @DELETE("Product/deleteWishList/productId={productId}")
     Call<AApi<String>> deleteWishList(@Header("Authorization") String token, @Path("productId") int id);
 }

@@ -76,7 +76,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     public void deleteBook(int position) {
         this.data.remove(position);
-        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     public class BookViewHolder extends RecyclerView.ViewHolder {

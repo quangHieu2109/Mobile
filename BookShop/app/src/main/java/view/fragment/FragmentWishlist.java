@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.bookshop.R;
 
@@ -20,6 +22,7 @@ import api.APIService;
 import api.Login;
 import loader.BookLoader;
 import loader.BookType;
+import model.Wishlist;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +34,8 @@ import retrofit2.Response;
  */
 public class FragmentWishlist extends Fragment {
     RecyclerView rcv_wishlist;
+    int position;
+    BookAdapter bookAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,9 +99,8 @@ public class FragmentWishlist extends Fragment {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                // Delete book
-                int position = viewHolder.getAdapterPosition();
-                BookAdapter bookAdapter = (BookAdapter) rcv_wishlist.getAdapter();
+                 position = viewHolder.getAdapterPosition();
+                 bookAdapter = (BookAdapter) rcv_wishlist.getAdapter();
                 int id =(int) bookAdapter.getData().get(position).getProduct().getId();
                 APIService.apiService.deleteWishList("Bearer " + Login.getToken(), id).enqueue(new Callback<AApi<String>>() {
                     @Override
@@ -104,11 +108,14 @@ public class FragmentWishlist extends Fragment {
                         if (response.body().isStatus()) {
                             bookAdapter.deleteBook(position);
                         }
+                        else {
+                            Toast.makeText(getContext(), "Delete failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<AApi<String>> call, Throwable t) {
-
+                        Log.d("FragmentWishlist", "onFailure: " + t.getMessage());
                     }
                 });
             }
