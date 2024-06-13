@@ -1,6 +1,5 @@
 package view.fragment;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,16 +11,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bookshop.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 import adapter.BookAdapter;
+import api.AApi;
+import api.APIService;
+import api.BookResponse;
+import api.Login;
+import api.Wishlist;
+import loader.BookLoader;
+import loader.BookType;
 import model.Book;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +39,11 @@ import model.Book;
  * create an instance of this fragment.
  */
 public class FragmentBookDetail extends Fragment {
+    BookResponse book;
+    ImageView img_book;
+    BookAdapter bookAdapterSimilar;
     RecyclerView rcv_similar;
+    ImageButton btn_wishlist;
     TextView counterReview, title_book, author, release_book, description, rating;
     Button btn_buy, btn_submit, btn_back;
     ProgressBar star_1, star_2, star_3, star_4, star_5;
@@ -87,46 +101,68 @@ public class FragmentBookDetail extends Fragment {
         title_book = view.findViewById(R.id.title_book);
         author = view.findViewById(R.id.author);
         btn_back = view.findViewById(R.id.back);
+        img_book = view.findViewById(R.id.img_book);
         release_book = view.findViewById(R.id.release_book);
         description = view.findViewById(R.id.description);
         rating = view.findViewById(R.id.rating);
+        btn_wishlist = view.findViewById(R.id.btn_wishlist);
         btn_buy = view.findViewById(R.id.btn_buy);
         btn_submit = view.findViewById(R.id.btn_submit);
         rcv_similar = view.findViewById(R.id.rcv_similar);
         rcv_similar.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        BookAdapter bookAdapterSimilar = new BookAdapter(getContext());
+        bookAdapterSimilar = new BookAdapter(getContext());
         rcv_similar.setAdapter(bookAdapterSimilar);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Book book = (Book) bundle.getSerializable("book");
+            book = (BookResponse) bundle.getSerializable("book");
             receiveData(book);
 
         }
-        bookAdapterSimilar.setData(setDataBookSimilar());
+
         setBtnClickListeners();
         return view;
     }
 
-    public void receiveData(Book book) {
-        title_book.setText(book.getTitle());
-        author.setText(book.getAuthor());
+    public void receiveData(BookResponse book) {
+        Book books = book.getProduct();
+        title_book.setText(books.getName());
+        author.setText(books.getAuthor());
+        rating.setText(book.getRating()+"");
+        Picasso.get().load(books.getImageName()).fit().into(img_book);
+
+        btn_buy.setText("Buy " + (int) books.getPrice() + " VND");
+
 //        release_book.setText(book.getRelease());
-        description.setText(book.getDescription());
-//        rating.setText(book.getRating());
+        description.setText(books.getDescription());
+        BookLoader.loadBook(bookAdapterSimilar, BookType.SIMILAR, books);
     }
+
     private void setBtnClickListeners() {
         btn_back.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager().popBackStack();
         });
-    }
+        btn_wishlist.setOnClickListener(v -> {
+            APIService.apiService.addWishList("Bearer "+Login.getToken(), (int) book.getProduct().getId()).enqueue(new Callback<AApi<Wishlist>>() {
+                @Override
+                public void onResponse(Call<AApi<Wishlist>> call, Response<AApi<Wishlist>> response) {
+                    if (response.body()==null) {
+                        Toast.makeText(getContext(), "Add to wishlist failed", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (response.body().isStatus()) {
+                        Toast.makeText(getContext(), "Add to wishlist successfully", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-    public List<Book> setDataBookSimilar() {
+                @Override
+                public void onFailure(Call<AApi<Wishlist>> call, Throwable t) {
+                    Log.e("Error", t.getMessage());
+                } ;
+            });
+        });
 
-        List<Book> books = new ArrayList<>();
-        books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-        books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-        books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-        books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-        return books;
+
     }
 }

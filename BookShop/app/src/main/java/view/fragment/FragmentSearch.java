@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapter.SearchBookAdapter;
+import api.BookResponse;
 import model.Book;
 
 /**
@@ -92,9 +93,9 @@ AutoCompleteTextView autoCompleteTextView;
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Book book = (Book) parent.getItemAtPosition(position);
 
-                senDataBookToDetail(book);
+
+                senDataBookToDetail((BookResponse) parent.getItemAtPosition(position));
             }
         });
 
@@ -102,17 +103,16 @@ AutoCompleteTextView autoCompleteTextView;
             getActivity().getSupportFragmentManager().popBackStack();
         });
     }
-    private List<Book> getData(){
-        List<Book> books = new ArrayList<>();
-        books.add(new Book("Harry Potter", null, "Fantasy", "2000 Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The novels chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry."));
+    private List<BookResponse> getData(){
+        List<BookResponse> books = new ArrayList<>();
     return books;
     }
-    public void senDataBookToDetail(Book book){
+    public void senDataBookToDetail(BookResponse book){
         iSendData.sendData(book);
 
     }
     public interface ISendData{
-        void sendData(Book book);
+        void sendData(BookResponse book);
     }
 
 }

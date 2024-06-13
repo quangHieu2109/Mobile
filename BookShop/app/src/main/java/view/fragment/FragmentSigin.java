@@ -14,29 +14,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+
 import android.widget.Toast;
 
 import com.example.bookshop.R;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.BeginSignInResult;
-import com.google.android.gms.auth.api.identity.Identity;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.auth.api.identity.SignInCredential;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import api.APIService;
+import api.Login;
+import api.LoginRequest;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import view.activity.HomeActivity;
 
 /**
@@ -45,12 +51,14 @@ import view.activity.HomeActivity;
  * create an instance of this fragment.
  */
 public class FragmentSigin extends Fragment {
+    EditText edtEmail, edtPassword;
     GoogleSignInOptions gso;
     ActivityResultLauncher<Intent> someActivityResultLauncher;
     GoogleSignInClient signInClient;
 
     Button btnForgetPass, btnSigin;
     ImageButton btnLoginByGoogle;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -97,7 +105,8 @@ public class FragmentSigin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sigin, container, false);
-
+        edtEmail = view.findViewById(R.id.username);
+        edtPassword = view.findViewById(R.id.password);
         btnForgetPass = view.findViewById(R.id.btn_forgot_password);
         btnSigin = view.findViewById(R.id.btn_sign_in);
         btnLoginByGoogle = view.findViewById(R.id.btn_login_gg);
@@ -131,8 +140,25 @@ public class FragmentSigin extends Fragment {
                     .commit();
         });
         btnSigin.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), HomeActivity.class);
-            startActivity(intent);
+            APIService.apiService.login(new LoginRequest(edtEmail.getText().toString(), edtPassword.getText().toString())).enqueue(new Callback<Login>() {
+                @Override
+                public void onResponse(Call<Login> call, Response<Login> response) {
+                    if (response.isSuccessful()) {
+                        Login.setToken(response.body().getData());
+                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getActivity(), "Login failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Login> call, Throwable t) {
+                    Log.d("TAG", "onFailure: " + t.getMessage());
+                    Toast.makeText(getActivity(), "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         });
         btnLoginByGoogle.setOnClickListener(v -> {
             Intent signInIntent = signInClient.getSignInIntent();

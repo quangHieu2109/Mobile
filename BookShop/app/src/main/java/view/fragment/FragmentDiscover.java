@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapter.BookAdapter;
+import api.APIService;
+import api.BookResponse;
+import loader.BookLoader;
+import loader.BookType;
 import model.Book;
 
 /**
@@ -79,37 +83,18 @@ public class FragmentDiscover extends Fragment {
         rcv_top_charts = view.findViewById(R.id.rcv_top_charts);
         rcv_top_release = view.findViewById(R.id.rcv_top_new_release);
 
-         rcv_top_selling.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rcv_top_selling.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rcv_top_selling.setAdapter(bookAdapterSelling);
         rcv_top_charts.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rcv_top_charts.setAdapter(bookAdapterCharts);
         rcv_top_release.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rcv_top_release.setAdapter(bookAdapterRelease);
 
-        new LoadData().execute();
+        BookLoader.loadBook(bookAdapterCharts, BookType.CHARTS,null);
+        BookLoader.loadBook(bookAdapterSelling, BookType.TOP_SELLER,null);
+        BookLoader.loadBook(bookAdapterRelease, BookType.TOP_RELEASES,null);
+
+
         return view;
-    }
-
-    public class LoadData extends AsyncTask<Void,Void,List<Book>> {
-
-
-        @Override
-        protected List<Book> doInBackground(Void... voids) {
-            List<Book> books = new ArrayList<>();
-            books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-            books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-            books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-            books.add(new Book("The Great Gatsby", BitmapFactory.decodeResource(getResources(), R.drawable.book_harry), "F. Scott Fitzgerald", "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan."));
-
-            return books;
-        }
-
-        @Override
-        protected void onPostExecute(List<Book> books) {
-            super.onPostExecute(books);
-            bookAdapterSelling.setData(books);
-            bookAdapterCharts.setData(books);
-            bookAdapterRelease.setData(books);
-        }
     }
 }
