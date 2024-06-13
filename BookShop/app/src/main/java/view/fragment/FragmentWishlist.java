@@ -107,6 +107,7 @@ public class FragmentWishlist extends Fragment {
                     public void onResponse(Call<AApi<String>> call, Response<AApi<String>> response) {
                         if (response.body().isStatus()) {
                             bookAdapter.deleteBook(position);
+                            Toast.makeText(getContext(), "Delete success", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(getContext(), "Delete failed", Toast.LENGTH_SHORT).show();
