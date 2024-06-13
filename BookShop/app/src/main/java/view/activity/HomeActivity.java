@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.bookshop.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import api.BookResponse;
 import model.Book;
 import view.fragment.FragmentBookDetail;
 import view.fragment.FragmentDiscover;
@@ -62,7 +63,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentSearch.IS
     }
 
     @Override
-    public void sendData(Book book) {
+    public void sendData(BookResponse book) {
         FragmentBookDetail fragmentBookDetail = new FragmentBookDetail();
         Bundle bundle = new Bundle();
         bundle.putSerializable("book", book);
