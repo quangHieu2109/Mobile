@@ -33,6 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -110,7 +111,7 @@ public class FragmentSigin extends Fragment {
         btnForgetPass = view.findViewById(R.id.btn_forgot_password);
         btnSigin = view.findViewById(R.id.btn_sign_in);
         btnLoginByGoogle = view.findViewById(R.id.btn_login_gg);
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestIdToken("847546457050-0i16i95g131e3smcs5j3mofmon7n7b0o.apps.googleusercontent.com").requestProfile().build();
         signInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         setBtnClickListeners();
@@ -171,6 +172,8 @@ public class FragmentSigin extends Fragment {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
+            
+            Log.d("Id",account.getIdToken()+"");
             // Signed in successfully, show authenticated UI.
             Toast.makeText(getActivity(), "Welcome "+ account.getEmail(), Toast.LENGTH_SHORT).show();
         } catch (ApiException e) {

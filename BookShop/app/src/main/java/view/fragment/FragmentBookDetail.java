@@ -1,5 +1,6 @@
 package view.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ import api.AApi;
 import api.APIService;
 import api.BookResponse;
 import api.Login;
+import api.VNPaySDK;
 import loader.BookLoader;
 import loader.BookType;
 import model.Book;
@@ -116,7 +118,6 @@ public class FragmentBookDetail extends Fragment {
         if (bundle != null) {
             book = (BookResponse) bundle.getSerializable("book");
             receiveData(book);
-
         }
 
         setBtnClickListeners();
@@ -125,16 +126,41 @@ public class FragmentBookDetail extends Fragment {
 
     public void receiveData(BookResponse book) {
         Book books = book.getProduct();
-        title_book.setText(books.getName());
-        author.setText(books.getAuthor());
-        rating.setText(book.getRating()+"");
-        Picasso.get().load(books.getImageName()).fit().into(img_book);
-
-        btn_buy.setText("Buy " + (int) books.getPrice() + " VND");
-
-//        release_book.setText(book.getRelease());
-        description.setText(books.getDescription());
+        refreshBookDetail((int) books.getId());
         BookLoader.loadBook(bookAdapterSimilar, BookType.SIMILAR, books);
+    }
+    public void refreshBookDetail(int idBook) {
+        APIService.apiService.getBookById("Bearer "+Login.getToken(),idBook).enqueue(new Callback<AApi<BookResponse>>() {
+            @Override
+            public void onResponse(Call<AApi<BookResponse>> call, Response<AApi<BookResponse>> response) {
+                if (response.body().isStatus()) {
+                    book = response.body().getData();
+                    Book books = book.getProduct();
+                    title_book.setText(books.getName());
+                    author.setText(books.getAuthor());
+                    rating.setText(book.getRating() + "");
+                    if (book.isWishlist()){
+                        btn_wishlist.setBackground(getResources().getDrawable(R.drawable.ic_wishlist_added));
+                    }
+                    Picasso.get().load(books.getImageName()).fit().into(img_book);
+
+                    btn_buy.setText("Buy " + (int) books.getPrice() + " VND");
+
+                    release_book.setText(book.getProduct().getPublisher());
+                    description.setText(books.getDescription());
+                }else {
+                    Toast.makeText(getContext(), "Load book detail failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AApi<BookResponse>> call, Throwable t) {
+                Toast.makeText(getContext(), "Server die :))", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
     private void setBtnClickListeners() {
@@ -142,27 +168,69 @@ public class FragmentBookDetail extends Fragment {
             getActivity().getSupportFragmentManager().popBackStack();
         });
         btn_wishlist.setOnClickListener(v -> {
-            APIService.apiService.addWishList("Bearer "+Login.getToken(), (int) book.getProduct().getId()).enqueue(new Callback<AApi<Wishlist>>() {
-                @Override
-                public void onResponse(Call<AApi<Wishlist>> call, Response<AApi<Wishlist>> response) {
-                    if (response.body()==null) {
-                        Toast.makeText(getContext(), "Add to wishlist failed", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (response.body().isStatus()) {
-                        Toast.makeText(getContext(), "Add to wishlist successfully", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<AApi<Wishlist>> call, Throwable t) {
-                    Log.e("Error", t.getMessage());
-                } ;
-            });
+            if (book != null & book.isWishlist()) {
+                deleteWishlist();
+            } else {
+                addWishlist();
+            }
+        });
+        btn_buy.setOnClickListener(v -> {
+            VNPaySDK.openSDK(getContext());
         });
 
 
+    }
+
+    private void deleteWishlist() {
+
+        APIService.apiService.deleteWishList("Bearer " + Login.getToken(), (int) book.getProduct().getId()).enqueue(new Callback<AApi<String>>() {
+            @Override
+            public void onResponse(Call<AApi<String>> call, Response<AApi<String>> response) {
+                if (response.body() == null) {
+                    Toast.makeText(getContext(), "Delete wishlist failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (response.body().isStatus()) {
+                    btn_wishlist.setBackground(getResources().getDrawable(R.drawable.ic_wishlist));
+                    book.setWishlist(false);
+                    Toast.makeText(getContext(), "Delete wishlist successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AApi<String>> call, Throwable t) {
+                Log.e("Error", t.getMessage());
+            }
+        });
+
+
+    }
+
+    private void addWishlist() {
+        APIService.apiService.addWishList("Bearer " + Login.getToken(), (int) book.getProduct().getId()).enqueue(new Callback<AApi<Wishlist>>() {
+            @Override
+            public void onResponse(Call<AApi<Wishlist>> call, Response<AApi<Wishlist>> response) {
+                if (response.body() == null) {
+                    Toast.makeText(getContext(), "Add to wishlist failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (response.body().isStatus()) {
+                    book.setWishlist(true);
+                    btn_wishlist.setBackground(getResources().getDrawable(R.drawable.ic_wishlist_added));
+                    Toast.makeText(getContext(), "Add to wishlist successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AApi<Wishlist>> call, Throwable t) {
+                Log.e("Error", t.getMessage());
+            }
+
+            ;
+        });
     }
 }

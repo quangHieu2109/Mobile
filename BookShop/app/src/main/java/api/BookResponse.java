@@ -1,5 +1,7 @@
 package api;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import model.Book;
@@ -7,12 +9,20 @@ import model.Book;
 public class BookResponse implements Serializable {
     Book product;
     double rating;
+    @SerializedName("wishlist")
+    boolean isWishlist;
 
-    public BookResponse(Book product, int rating) {
+    public BookResponse(Book product, int rating, boolean isWishlist) {
         this.product = product;
         this.rating = rating;
+        this.isWishlist = isWishlist;
     }
-
+    public void setWishlist(boolean wishlist) {
+        isWishlist = wishlist;
+    }
+    public boolean isWishlist() {
+        return isWishlist;
+    }
     public Book getProduct() {
         return product;
     }

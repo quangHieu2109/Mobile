@@ -60,4 +60,6 @@ public interface APIService {
     Call<AApi<List<BookResponse>>> getRecommended(@Path("productId") long id);
     @DELETE("Product/deleteWishList/productId={productId}")
     Call<AApi<String>> deleteWishList(@Header("Authorization") String token, @Path("productId") int id);
+    @GET("Product/getById/productId={productId}")
+    Call<AApi<BookResponse>> getBookById(@Header("Authorization") String token,@Path("productId") int id);
 }

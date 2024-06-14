@@ -39,6 +39,8 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.activity:activity:1.8.0")
+    implementation(files("./libs/merchant-1.0.24.aar"))
+//    implementation ("com.android.support:support-v4:28.0.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     implementation ("com.github.criminact:OTPView:1.0.3")
