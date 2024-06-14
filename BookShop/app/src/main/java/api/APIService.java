@@ -7,10 +7,12 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 
 import model.Book;
+import model.Wishlist;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -32,28 +34,30 @@ public interface APIService {
     Call<Login> login(@Body LoginRequest loginRequest);
 
     @GET("product/getSimilarProduct")
-    Call<List<BookResponse>> getSimilarBook(@Query("productId") long id);
+    Call<AApi<List<BookResponse>>> getSimilarBook(@Query("productId") long id);
 
     @GET("product/getAllProduct")
-    Call<List<BookResponse>> getAllBook();
+    Call<AApi<List<BookResponse>>> getAllBook();
 
     @POST("product/addWishList/productId={productId}")
     Call<AApi<Wishlist>> addWishList(@Header("Authorization") String token, @Path("productId") int id);
 
     @GET("product/getProductByName")
-    Call<List<BookResponse>> searchBook(@Query("name") String name);
+    Call<AApi<List<BookResponse>>> searchBook(@Query("name") String name);
 
     @GET("product/getWishList")
-    Call<List<BookResponse>> getWishList(@Header("Authorization") String token);
+    Call<AApi<List<BookResponse>>> getWishList(@Header("Authorization") String token);
 
     @GET("Product/getPerchased")
-    Call<List<BookResponse>> getPerchased(@Header("Authorization") String token);
+    Call<AApi<List<BookResponse>>> getPerchased(@Header("Authorization") String token);
     @GET("product/getTopSell")
-    Call<List<BookResponse>> getTopSeller();
+    Call<AApi<List<BookResponse>>> getTopSeller();
     @GET("product/getByOrderRating")
-    Call<List<BookResponse>> getTopCharts();
+    Call<AApi<List<BookResponse>>> getTopCharts();
     @GET("product/getReleases")
-    Call<List<BookResponse>> getTopRelease();
+    Call<AApi<List<BookResponse>>> getTopRelease();
     @GET("product/getRecommendByOrderRating/productId={productId}")
-    Call<List<BookResponse>> getRecommended(@Path("productId") long id);
+    Call<AApi<List<BookResponse>>> getRecommended(@Path("productId") long id);
+    @DELETE("Product/deleteWishList/productId={productId}")
+    Call<AApi<String>> deleteWishList(@Header("Authorization") String token, @Path("productId") int id);
 }
