@@ -69,7 +69,7 @@ public class VNPayActivity extends AppCompatActivity {
         url = intent.getStringExtra("url");
         tmn_code = intent.getStringExtra("tmn_code");
         scheme = intent.getStringExtra("scheme");
-        vnp_Amount = ((int)(intent.getDoubleExtra("vnp_Amount",0)*100))+"";
+        vnp_Amount = ((int)intent.getDoubleExtra("vnp_Amount",0))+"";
         is_sandbox = intent.getBooleanExtra("is_sandbox", true);
         webView = findViewById(R.id.webView);
         this.webView.getSettings().setJavaScriptEnabled(true);

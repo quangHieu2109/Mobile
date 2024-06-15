@@ -19,7 +19,7 @@ public class VNPaySDK  {
         intent.putExtra("url"," https://sandbox.vnpayment.vn/paymentv2/vpcpay.html");
         intent.putExtra("tmn_code", "EO1BO5ZM");
         intent.putExtra("scheme", "homeapp");
-        intent.putExtra("vnp_Amount",mount );
+        intent.putExtra("vnp_Amount",mount*100 );
         intent.putExtra("is_sandbox", true);
         VNPayActivity.setSdkCompletedCallback(new VNPayCallBack() {
 
