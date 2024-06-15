@@ -19,7 +19,12 @@
         <activity
             android:windowSoftInputMode="adjustPan"
             android:name="view.activity.HomeActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <intent-filter>
+                <data android:scheme="homeapp"/>
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="view.activity.LoginActivity"
             android:exported="false" />
