@@ -1,8 +1,8 @@
 package view.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +26,7 @@ import api.AApi;
 import api.APIService;
 import api.BookResponse;
 import api.Login;
-import api.VNPaySDK;
+import api.vnpay.VNPaySDK;
 import loader.BookLoader;
 import loader.BookType;
 import model.Book;
@@ -175,7 +175,7 @@ public class FragmentBookDetail extends Fragment {
             }
         });
         btn_buy.setOnClickListener(v -> {
-            VNPaySDK.openSDK(getContext());
+            VNPaySDK.openSDK(getContext(), book.getProduct().getPrice());
         });
 
 

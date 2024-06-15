@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bookshop"
-    xmlns:tools="http://schemas.android.com/tools">
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.bookshop">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
-        android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BookShop"
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
-            android:windowSoftInputMode="adjustPan"
+            android:name="view.activity.VNPayActivity"
+            android:exported="false" />
+        <activity
             android:name="view.activity.HomeActivity"
-            android:exported="false" >
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="homeapp"/>
+
+                <data android:scheme="homeapp" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="view.activity.LoginActivity"
             android:exported="false" />
