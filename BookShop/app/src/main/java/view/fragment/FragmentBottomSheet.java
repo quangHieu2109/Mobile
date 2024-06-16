@@ -1,5 +1,6 @@
 package view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +16,14 @@ import com.example.bookshop.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import api.vnpay.VNPayCallBack;
+import api.vnpay.VNPaySDK;
 import model.Book;
+import view.activity.OrderBookActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +31,9 @@ import model.Book;
  * create an instance of this fragment.
  */
 public class FragmentBottomSheet extends BottomSheetDialogFragment {
-    private TextView name_item,price_item,tv_quantity;
+    private TextView name_item, price_item, tv_quantity;
     private ImageView img_item;
-    private ImageButton btn_minus,btn_plus,btn_buy,btn_add_to_cart;
+    private ImageButton btn_minus, btn_plus, btn_buy, btn_add_to_cart;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,14 +92,45 @@ public class FragmentBottomSheet extends BottomSheetDialogFragment {
         btn_plus = view.findViewById(R.id.btn_plus);
         btn_buy = view.findViewById(R.id.btn_buy);
 //        btn_add_to_cart = view.findViewById(R.id.btn_add_to_cart);
+        setBtnClickListener();
         setData(book);
 
         return view;
     }
-    private void setData(Book book){
-        name_item.setText(book.getName());
-        price_item.setText((int)book.getPrice()+"VND");
-        Picasso.get().load(book.getImageName()).into(img_item);
 
+    private void setBtnClickListener() {
+        btn_minus.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(tv_quantity.getText().toString());
+            if (quantity > 1) {
+                quantity--;
+                tv_quantity.setText(quantity + "");
+
+            }
+        });
+        btn_plus.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(tv_quantity.getText().toString());
+            quantity++;
+            tv_quantity.setText(quantity + "");
+        });
+        btn_buy.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), OrderBookActivity.class);
+            List<Book> books = new ArrayList<>();
+            List<Integer> quantities = new ArrayList<>();
+            quantities.add(Integer.parseInt(tv_quantity.getText().toString()));
+            books.add(book);
+            intent.putExtra("quantity", (Serializable) quantities);
+            intent.putExtra("book", (Serializable) books);
+            startActivity(intent);
+
+        });
+//        btn_add_to_cart.setOnClickListener(v -> {
+//
+//        });
+    }
+
+    private void setData(Book book) {
+        name_item.setText(book.getName());
+        price_item.setText((int) book.getPrice() + "VND");
+        Picasso.get().load(book.getImageName()).into(img_item);
     }
 }

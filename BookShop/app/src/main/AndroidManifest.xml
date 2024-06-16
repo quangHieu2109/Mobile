@@ -17,9 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BookShop"
-        tools:replace="android:theme"
         android:usesCleartextTraffic="true"
+        tools:replace="android:theme"
         tools:targetApi="31">
+        <activity
+            android:name="view.activity.OrderBookActivity"
+            android:exported="false" />
         <activity
             android:name="view.activity.VNPayActivity"
             android:exported="false" />
