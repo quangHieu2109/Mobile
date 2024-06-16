@@ -104,13 +104,14 @@ public class FragmentBottomSheet extends BottomSheetDialogFragment {
             if (quantity > 1) {
                 quantity--;
                 tv_quantity.setText(quantity + "");
-
+                price_item.setText((int) book.getPrice() * quantity+ "VND");
             }
         });
         btn_plus.setOnClickListener(v -> {
             int quantity = Integer.parseInt(tv_quantity.getText().toString());
             quantity++;
             tv_quantity.setText(quantity + "");
+            price_item.setText((int) book.getPrice() * quantity + "VND");
         });
         btn_buy.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), OrderBookActivity.class);
