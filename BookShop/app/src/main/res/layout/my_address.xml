@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addAddress"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181A20"
+    android:orientation="vertical"
+    tools:context="view.activity.AddAddressActivity">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <Button
+
+           android:id="@+id/backMyAdress"
+           android:layout_width="45dp"
+           android:layout_height="48dp"
+           android:layout_marginVertical="30dp"
+           android:backgroundTint="#181A20"
+           app:icon="@drawable/back"
+           app:iconGravity="textStart"
+           app:iconSize="30dp"
+           android:contentDescription="123"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Địa chỉ của tôi"
+           android:layout_marginVertical="35dp"
+           android:textSize="20dp"
+           android:textColor="#fff"
+           android:layout_marginLeft="10dp"
+           android:contentDescription=""/>
+   </LinearLayout>
+    <RadioGroup
+        android:id="@+id/listAdress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </RadioGroup>
+
+        <Button
+            android:id="@+id/btnAddAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/plus_icon"
+            app:iconGravity="textStart"
+            app:iconSize="30dp"
+            android:text="Thêm địa chỉ"
+            android:background="#757474"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textColor="#FFFFFF"
+
+            />
+
+</LinearLayout>
