@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
 import adapter.BookAdapter;
 import api.AApi;
