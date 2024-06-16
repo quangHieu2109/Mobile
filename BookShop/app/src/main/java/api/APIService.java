@@ -12,6 +12,7 @@ import model.Province;
 import model.Ward;
 import model.Wishlist;
 import request.AddressRequest;
+import request.InfoShipRequest;
 import request.LoginRequest;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -28,12 +29,17 @@ public interface APIService {
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("https://9aee-2405-4802-93a1-2609-bd01-8139-3ac7-d1cf.ngrok-free.app/")
+            .baseUrl("https://11ce-2405-4802-93a1-2609-bd01-8139-3ac7-d1cf.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
     APIService viettheoAPI = new Retrofit.Builder()
             .baseUrl("https://partner.viettelpost.vn/v2/categories/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(APIService.class);
+    APIService getInfoShip = new Retrofit.Builder()
+            .baseUrl("https://partner.viettelpost.vn/v2/order/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -82,4 +88,6 @@ public interface APIService {
 
     @POST("Address/addAddress")
     Call<AApi<Address>> addAddress(@Header("Authorization") String token, @Body AddressRequest addressRequest);
+    @POST("getPriceAll")
+    Call<List<InfoShip>> getInfoShip(@Header("token") String token, @Body InfoShipRequest infoShipRequest);
 }
