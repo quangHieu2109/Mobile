@@ -31,6 +31,9 @@
             android:name="view.activity.LoginActivity"
             android:exported="false" />
         <activity
+            android:name="view.activity.AddAddressActivity"
+            android:exported="false" />
+        <activity
             android:name="view.activity.MainApp"
             android:exported="true">
             <intent-filter>
