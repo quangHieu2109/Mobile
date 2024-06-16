@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="10dp"
+    android:id="@+id/bottom_sheet_buy_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp"
+    app:behavior_draggable="false"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    >
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/name_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:text="name Item"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/image_item"
+            android:layout_alignParentEnd="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/book_harry" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price:"
+                android:textSize="18sp" />
+            <TextView
+                android:textColor="@color/orange"
+                android:id="@+id/price_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100000VND"
+                android:textSize="18sp"/>
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+
+                android:id="@+id/btn_minus"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/minus_icon" />
+
+            <TextView
+                android:id="@+id/tv_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:text="1"
+                android:textSize="18sp"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btn_plus"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/plus_icon" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:gravity="end"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:padding="8dp"
+            android:gravity="center"
+            android:drawableTop="@drawable/cart_shoping"
+            android:layout_marginHorizontal="50dp"
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="100dp"
+            android:layout_height="50dp" />
+
+
+        <ImageButton
+
+            android:foregroundTint="@color/black"
+            android:foregroundTintMode="screen"
+            android:layout_gravity="center"
+            android:background="@drawable/cart_shoping"
+            android:id="@+id/btn_buy"
+            android:layout_width="30dp"
+            android:layout_height="28dp" />
+
+    </LinearLayout>
+</LinearLayout>

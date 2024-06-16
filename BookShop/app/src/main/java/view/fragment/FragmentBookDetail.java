@@ -34,6 +34,7 @@ import model.Wishlist;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import view.activity.HomeActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -175,7 +176,8 @@ public class FragmentBookDetail extends Fragment {
             }
         });
         btn_buy.setOnClickListener(v -> {
-            VNPaySDK.openSDK(getContext(), book.getProduct().getPrice());
+//            VNPaySDK.openSDK(getContext(), book.getProduct().getPrice());
+            ((HomeActivity) getActivity()).changeStateBottomSheet(book.getProduct());
         });
 
 
