@@ -2,7 +2,6 @@ package view.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -10,8 +9,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
@@ -33,13 +30,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import api.APIService;
 import api.Login;
-import api.LoginRequest;
+import request.LoginRequest;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -110,7 +105,7 @@ public class FragmentSigin extends Fragment {
         btnForgetPass = view.findViewById(R.id.btn_forgot_password);
         btnSigin = view.findViewById(R.id.btn_sign_in);
         btnLoginByGoogle = view.findViewById(R.id.btn_login_gg);
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestIdToken("847546457050-0i16i95g131e3smcs5j3mofmon7n7b0o.apps.googleusercontent.com").requestProfile().build();
         signInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         setBtnClickListeners();
@@ -171,6 +166,8 @@ public class FragmentSigin extends Fragment {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
+            
+            Log.d("Id",account.getIdToken()+"");
             // Signed in successfully, show authenticated UI.
             Toast.makeText(getActivity(), "Welcome "+ account.getEmail(), Toast.LENGTH_SHORT).show();
         } catch (ApiException e) {

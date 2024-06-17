@@ -6,16 +6,21 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
-import model.Book;
+import model.Address;
+import model.District;
+import model.Province;
+import model.Ward;
+import model.Wishlist;
+import request.AddressRequest;
+import request.InfoShipRequest;
+import request.LoginRequest;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -24,7 +29,17 @@ public interface APIService {
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5276/")
+            .baseUrl("https://8e06-2405-4802-93a1-2609-bd01-8139-3ac7-d1cf.ngrok-free.app/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(APIService.class);
+    APIService viettheoAPI = new Retrofit.Builder()
+            .baseUrl("https://partner.viettelpost.vn/v2/categories/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(APIService.class);
+    APIService getInfoShip = new Retrofit.Builder()
+            .baseUrl("https://partner.viettelpost.vn/v2/order/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -32,28 +47,47 @@ public interface APIService {
     Call<Login> login(@Body LoginRequest loginRequest);
 
     @GET("product/getSimilarProduct")
-    Call<List<BookResponse>> getSimilarBook(@Query("productId") long id);
+    Call<AApi<List<BookResponse>>> getSimilarBook(@Query("productId") long id);
 
     @GET("product/getAllProduct")
-    Call<List<BookResponse>> getAllBook();
+    Call<AApi<List<BookResponse>>> getAllBook();
 
     @POST("product/addWishList/productId={productId}")
     Call<AApi<Wishlist>> addWishList(@Header("Authorization") String token, @Path("productId") int id);
 
     @GET("product/getProductByName")
-    Call<List<BookResponse>> searchBook(@Query("name") String name);
+    Call<AApi<List<BookResponse>>> searchBook(@Query("name") String name);
 
     @GET("product/getWishList")
-    Call<List<BookResponse>> getWishList(@Header("Authorization") String token);
+    Call<AApi<List<BookResponse>>> getWishList(@Header("Authorization") String token);
 
     @GET("Product/getPerchased")
-    Call<List<BookResponse>> getPerchased(@Header("Authorization") String token);
+    Call<AApi<List<BookResponse>>> getPerchased(@Header("Authorization") String token);
     @GET("product/getTopSell")
-    Call<List<BookResponse>> getTopSeller();
+    Call<AApi<List<BookResponse>>> getTopSeller();
     @GET("product/getByOrderRating")
-    Call<List<BookResponse>> getTopCharts();
+    Call<AApi<List<BookResponse>>> getTopCharts();
     @GET("product/getReleases")
-    Call<List<BookResponse>> getTopRelease();
+    Call<AApi<List<BookResponse>>> getTopRelease();
     @GET("product/getRecommendByOrderRating/productId={productId}")
-    Call<List<BookResponse>> getRecommended(@Path("productId") long id);
+    Call<AApi<List<BookResponse>>> getRecommended(@Path("productId") long id);
+    @DELETE("Product/deleteWishList/productId={productId}")
+    Call<AApi<String>> deleteWishList(@Header("Authorization") String token, @Path("productId") int id);
+    @GET("Product/getById/productId={productId}")
+    Call<AApi<BookResponse>> getBookById(@Header("Authorization") String token,@Path("productId") int id);
+    @GET("listProvinceById?provinceId=")
+    Call<ViettheoResponse<Province>> getAllProvince(@Header("token") String token);
+    @GET("listProvinceById")
+    Call<ViettheoResponse<Province>> getProvince(@Header("token") String token, @Query("provinceId") int id);
+    @GET("listDistrict")
+    Call<ViettheoResponse<District>> getDistrict(@Header("token") String token, @Query("provinceId") int id);
+    @GET("listWards")
+    Call<ViettheoResponse<Ward>> getWard(@Header("token") String token, @Query("districtId") int id);
+    @GET("Address/getAddress")
+    Call<AApi<List<Address>>> getAddress(@Header("Authorization") String token);
+
+    @POST("Address/addAddress")
+    Call<AApi<Address>> addAddress(@Header("Authorization") String token, @Body AddressRequest addressRequest);
+    @POST("getPriceAll")
+    Call<List<InfoShip>> getInfoShip(@Header("token") String token, @Body InfoShipRequest infoShipRequest);
 }

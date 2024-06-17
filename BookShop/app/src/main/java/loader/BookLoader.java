@@ -5,9 +5,9 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
 import adapter.BookAdapter;
+import api.AApi;
 import api.APIService;
 import api.BookResponse;
 import api.Login;
@@ -50,12 +50,12 @@ public class BookLoader {
     }
 
     private static void callGetRecommended(BookAdapter bookAdapter) {
-        APIService.apiService.getRecommended(1).enqueue(new Callback<List<BookResponse>>() {
+        APIService.apiService.getRecommended(1).enqueue(new Callback<AApi<List<BookResponse>>>() {
             @Override
-            public void onResponse(Call<List<BookResponse>> call, Response<List<BookResponse>> response) {
+            public void onResponse(Call<AApi<List<BookResponse>>> call, Response<AApi<List<BookResponse>>> response) {
                 if (response.isSuccessful()) {
                     Log.d("BookLoader", "onResponse: " + response.code());
-                    bookAdapter.setData(response.body());
+                    bookAdapter.setData(response.body().getData());
                 } else {
                     Log.d("BookLoader", "onResponse: " + response.message());
                     bookAdapter.setData(null);
@@ -63,7 +63,7 @@ public class BookLoader {
             }
 
             @Override
-            public void onFailure(Call<List<BookResponse>> call, Throwable t) {
+            public void onFailure(Call<AApi<List<BookResponse>>> call, Throwable t) {
 
                 Log.d("BookLoader", "onFailure: " + t.getMessage());
                 bookAdapter.setData(null);
@@ -73,12 +73,12 @@ public class BookLoader {
     }
 
     private static void callGetTopRelease(BookAdapter bookAdapter) {
-        APIService.apiService.getTopRelease().enqueue(new Callback<List<BookResponse>>() {
+        APIService.apiService.getTopRelease().enqueue(new Callback<AApi<List<BookResponse>>>() {
             @Override
-            public void onResponse(Call<List<BookResponse>> call, Response<List<BookResponse>> response) {
+            public void onResponse(Call<AApi<List<BookResponse>>> call, Response<AApi<List<BookResponse>>> response) {
                 if (response.isSuccessful()) {
                     Log.d("BookLoader", "onResponse: " + response.code());
-                    bookAdapter.setData(response.body());
+                    bookAdapter.setData(response.body().getData());
                 } else {
                     Log.d("BookLoader", "onResponse: " + response.message());
                     bookAdapter.setData(null);
@@ -86,7 +86,7 @@ public class BookLoader {
             }
 
             @Override
-            public void onFailure(Call<List<BookResponse>> call, Throwable t) {
+            public void onFailure(Call<AApi<List<BookResponse>>> call, Throwable t) {
 
                 Log.d("BookLoader", "onFailure: " + t.getMessage());
                 bookAdapter.setData(null);
@@ -96,12 +96,12 @@ public class BookLoader {
     }
 
     private static void callGetTopCharts(BookAdapter bookAdapter) {
-        APIService.apiService.getTopCharts().enqueue(new Callback<List<BookResponse>>() {
+        APIService.apiService.getTopCharts().enqueue(new Callback<AApi<List<BookResponse>>>() {
             @Override
-            public void onResponse(Call<List<BookResponse>> call, Response<List<BookResponse>> response) {
+            public void onResponse(Call<AApi<List<BookResponse>>> call, Response<AApi<List<BookResponse>>> response) {
                 if (response.isSuccessful()) {
                     Log.d("BookLoader", "onResponse: " + response.code());
-                    bookAdapter.setData(response.body());
+                    bookAdapter.setData(response.body().getData());
                 } else {
                     Log.d("BookLoader", "onResponse: " + response.message());
                     bookAdapter.setData(null);
@@ -109,7 +109,7 @@ public class BookLoader {
             }
 
             @Override
-            public void onFailure(Call<List<BookResponse>> call, Throwable t) {
+            public void onFailure(Call<AApi<List<BookResponse>>> call, Throwable t) {
 
                 Log.d("BookLoader", "onFailure: " + t.getMessage());
                 bookAdapter.setData(null);
@@ -119,12 +119,12 @@ public class BookLoader {
     }
 
     private static void callGetTopSeller(BookAdapter bookAdapter) {
-        APIService.apiService.getTopSeller().enqueue(new Callback<List<BookResponse>>() {
+        APIService.apiService.getTopSeller().enqueue(new Callback<AApi<List<BookResponse>>>() {
             @Override
-            public void onResponse(Call<List<BookResponse>> call, Response<List<BookResponse>> response) {
+            public void onResponse(Call<AApi<List<BookResponse>>> call, Response<AApi<List<BookResponse>>> response) {
                 if (response.isSuccessful()) {
                     Log.d("BookLoader", "onResponse: " + response.code());
-                    bookAdapter.setData(response.body());
+                    bookAdapter.setData(response.body().getData());
                 } else {
                     Log.d("BookLoader", "onResponse: " + response.message());
                     bookAdapter.setData(null);
@@ -132,7 +132,7 @@ public class BookLoader {
             }
 
             @Override
-            public void onFailure(Call<List<BookResponse>> call, Throwable t) {
+            public void onFailure(Call<AApi<List<BookResponse>>> call, Throwable t) {
 
                 Log.d("BookLoader", "onFailure: " + t.getMessage());
                 bookAdapter.setData(null);
@@ -142,12 +142,12 @@ public class BookLoader {
     }
 
     private static void callGetBookPurchased(BookAdapter bookAdapter) {
-        APIService.apiService.getPerchased("Bearer "+Login.getToken()).enqueue(new Callback<List<BookResponse>>() {
+        APIService.apiService.getPerchased("Bearer "+Login.getToken()).enqueue(new Callback<AApi<List<BookResponse>>>() {
             @Override
-            public void onResponse(Call<List<BookResponse>> call, Response<List<BookResponse>> response) {
+            public void onResponse(Call<AApi<List<BookResponse>>> call, Response<AApi<List<BookResponse>>> response) {
                 if (response.isSuccessful()) {
                     Log.d("BookLoader", "onResponse: " + response.code());
-                    bookAdapter.setData(response.body());
+                    bookAdapter.setData(response.body().getData());
                 } else {
                     Log.d("BookLoader", "onResponse: " + response.message());
                     bookAdapter.setData(null);
@@ -155,7 +155,7 @@ public class BookLoader {
             }
 
             @Override
-            public void onFailure(Call<List<BookResponse>> call, Throwable t) {
+            public void onFailure(Call<AApi<List<BookResponse>>> call, Throwable t) {
 
                 Log.d("BookLoader", "onFailure: " + t.getMessage());
                 bookAdapter.setData(null);
@@ -165,12 +165,12 @@ public class BookLoader {
     }
 
     private static void callGetBookWishlist(BookAdapter bookAdapter) {
-        APIService.apiService.getWishList("Bearer " + Login.getToken()).enqueue(new Callback<List<BookResponse>>() {
+        APIService.apiService.getWishList("Bearer " + Login.getToken()).enqueue(new Callback<AApi<List<BookResponse>>>() {
             @Override
-            public void onResponse(Call<List<BookResponse>> call, Response<List<BookResponse>> response) {
+            public void onResponse(Call<AApi<List<BookResponse>>> call, Response<AApi<List<BookResponse>>> response) {
                 if (response.isSuccessful()) {
                     Log.d("BookLoader", "onResponse: " + response.code());
-                    bookAdapter.setData(response.body());
+                    bookAdapter.setData(response.body().getData());
                 } else {
                     Log.d("BookLoader", "onResponse: " + response.message());
                     bookAdapter.setData(null);
@@ -178,7 +178,7 @@ public class BookLoader {
             }
 
             @Override
-            public void onFailure(Call<List<BookResponse>> call, Throwable t) {
+            public void onFailure(Call<AApi<List<BookResponse>>> call, Throwable t) {
 
                 Log.d("BookLoader", "onFailure: " + t.getMessage());
                 bookAdapter.setData(null);
@@ -188,18 +188,18 @@ public class BookLoader {
     }
 
     private static void callGetBookSimilar(BookAdapter bookAdapter, Book book) {
-        APIService.apiService.getSimilarBook(book.getId()).enqueue(new Callback<List<BookResponse>>() {
+        APIService.apiService.getSimilarBook(book.getId()).enqueue(new Callback<AApi<List<BookResponse>>>() {
             @Override
-            public void onResponse(Call<List<BookResponse>> call, Response<List<BookResponse>> response) {
+            public void onResponse(Call<AApi<List<BookResponse>>> call, Response<AApi<List<BookResponse>>> response) {
                 if (response.isSuccessful()) {
-                    bookAdapter.setData(response.body());
+                    bookAdapter.setData(response.body().getData());
                 } else {
                     bookAdapter.setData(null);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<BookResponse>> call, Throwable t) {
+            public void onFailure(Call<AApi<List<BookResponse>>> call, Throwable t) {
                 bookAdapter.setData(null);
             }
 

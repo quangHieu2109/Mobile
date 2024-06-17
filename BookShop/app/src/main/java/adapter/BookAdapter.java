@@ -57,6 +57,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             return data.size();
         return 0;
     }
+    public List<BookResponse> getData(){
+        return data;
+    }
     public void setData(List<BookResponse> data) {
         this.data = data;
         notifyDataSetChanged();
@@ -68,6 +71,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     public void addData(List<BookResponse> data) {
         this.data.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void deleteBook(int position) {
+        this.data.remove(position);
         notifyDataSetChanged();
     }
 
