@@ -157,7 +157,7 @@ public class OrderFragment extends Fragment {
             price_of_product += book.get(i).getPrice() * quantity.get(i);
         }
         price_of_products.setText((int)price_of_product + "");
-        int totalP = (int)price_of_product + Integer.valueOf(fee_ship.getText().toString());
+        int totalP = (int)price_of_product + Integer.valueOf((fee_ship.getText().toString().length()>0?fee_ship.getText().toString():"0"));
         total_amount.setText(totalP + "");
         total.setText(totalP + "");
 

@@ -31,12 +31,6 @@ public class MainApp extends AppCompatActivity {
             });
         }
 
-        if(btnGetStarted != null){
-            btnGetStarted.setOnClickListener(v -> {
-                Intent intent = new Intent(this, MyAddressActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            });
-        }
+
     }
 }

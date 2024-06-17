@@ -89,10 +89,12 @@ public class InfoShipActivity extends AppCompatActivity {
                                     if (i++ == 0) {
                                         radioButton.setSelected(true);
                                     }
+                                    radioButton.setGravity(Gravity.CENTER);
                                     radioButton.setTextColor(getResources().getColor(R.color.black));
                                     radioButton.setBackgroundColor(getResources().getColor(R.color.DDD));
                                     radioButton.setText(infoShip.toString());
                                     radioButton.setTag(infoShip);
+                                    radioButton.setPadding(20,20,20,20);
                                     params.width = (int) (listInfoShip.getWidth() * 0.7); // 60% chiều rộng của RadioButton
                                     params.setMargins(5, 10, 5, 10);
                                     radioButton.setLayoutParams(params);

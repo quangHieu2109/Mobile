@@ -21,6 +21,7 @@ import java.util.List;
 
 import api.AApi;
 import api.APIService;
+import api.Login;
 import api.ViettheoResponse;
 import model.Address;
 import model.District;
@@ -37,6 +38,7 @@ public class AddAddressActivity extends AppCompatActivity {
     TextView province_name, district_name, ward_name;
     Button btnAddAddress, backAddAddress;
     EditText houseNumberEdt;
+    boolean result = false;
 
     Context context;
     @Override
@@ -160,6 +162,11 @@ public class AddAddressActivity extends AppCompatActivity {
     }
     private void setOnClickListener(){
         backAddAddress.setOnClickListener(v ->{
+            if(result){
+                setResult(RESULT_OK);
+            }else{
+                setResult(RESULT_CANCELED);
+            }
             finish();
         });
 
@@ -173,14 +180,15 @@ public class AddAddressActivity extends AppCompatActivity {
 
                 if(houseNumber.length() >0){
                     AddressRequest addressRequest = new AddressRequest(houseNumber, provinceName, districtName, wardName);
-                    Call<AApi<Address>> call = APIService.apiService.addAddress("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkR1bm4gTWNwaGVyc29uIiwiZW1haWwiOiJkdW5ubWNwaGVyc29uQHJlY3Jpc3lzLmNvbSIsInN1YiI6ImR1bm5tY3BoZXJzb25AcmVjcmlzeXMuY29tIiwianRpIjoiNzM3YTI4ZDEtNWVhOS00NzRhLWE4NjQtNWY3Njg5OThhMDMxIiwicm9sZSI6IkFETUlOIiwiSWQiOiIxIiwibmJmIjoxNzE4NTE3NTQwLCJleHAiOjE3MTg1MzU1NDAsImlhdCI6MTcxODUxNzU0MH0.wLn2lr3k_I8N9pFZKx-11vbR5nh0b9nYtWIdB_1pDgs",addressRequest);
+                    Call<AApi<Address>> call = APIService.apiService.addAddress("Bearer "+ Login.getToken(),addressRequest);
                     call.enqueue(new Callback<AApi<Address>>() {
                         @Override
                         public void onResponse(Call<AApi<Address>> call, Response<AApi<Address>> response) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogSuccess);
                             builder.setTitle("Success")
-                                    .setMessage(response.body().getMessage())
+                                    .setMessage("Thêm địa chỉ thành công")
                                     .show();
+                            result = true;
                         }
 
                         @Override
