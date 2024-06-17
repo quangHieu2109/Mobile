@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addAddress"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181A20"
+    android:orientation="vertical"
+    tools:context="view.activity.AddAddressActivity">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <Button
+
+           android:id="@+id/backAddAddress"
+           android:layout_width="45dp"
+           android:layout_height="48dp"
+           android:layout_marginVertical="30dp"
+           android:backgroundTint="#181A20"
+           app:icon="@drawable/back"
+           app:iconGravity="textStart"
+           app:iconSize="30dp"
+           android:contentDescription="123"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Thêm địa chỉ nhận hàng"
+           android:layout_marginVertical="35dp"
+           android:textSize="20dp"
+           android:textColor="#fff"
+           android:layout_marginLeft="10dp"
+           android:contentDescription=""/>
+   </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tỉnh/Thành phố: "
+                android:textColor="#fff"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/province_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/province"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            style="@style/WhiteColor"
+
+            />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Quận/Huyện: "
+               android:textColor="#fff"
+               android:textSize="20dp"
+               android:layout_marginTop="10dp"/>
+           <TextView
+               android:id="@+id/district_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text=""
+               android:textColor="#fff"
+               android:textSize="20dp"
+               android:layout_marginTop="10dp"/>
+       </LinearLayout>
+
+        <Spinner
+            android:id="@+id/district"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+
+            style="@style/WhiteColor"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phường/Xã: "
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/ward_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/ward"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            style="@style/WhiteColor"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Số nhà: "
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"/>
+        <EditText
+            android:id="@+id/houseNumber"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#fff"
+            android:layout_marginLeft="10dp"
+            android:hint="Nhập số nhà!"
+            android:textColorHint="#818080"
+
+            />
+        <Button
+            android:id="@+id/btnAddAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm"
+            android:background="#181A20"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textColor="#fff"
+            />
+    </LinearLayout>
+</LinearLayout>

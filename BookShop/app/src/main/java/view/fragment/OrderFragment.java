@@ -1,18 +1,26 @@
 package view.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bookshop.R;
 
@@ -20,7 +28,10 @@ import java.util.List;
 
 import adapter.BookBuyAdapter;
 import api.vnpay.VNPaySDK;
+import model.Address;
 import model.Book;
+import view.activity.InfoShipActivity;
+import view.activity.MyAddressActivity;
 import view.activity.VNPayActivity;
 
 /**
@@ -32,10 +43,12 @@ public class OrderFragment extends Fragment {
     List<Book> book;
     List<Integer> quantity;
     RecyclerView recyclerViewBook;
-    TextView price_ship,date_ship,price_of_products,fee_ship,total_amount,total;
+    TextView price_ship,date_ship,price_of_products,fee_ship,total_amount,total,deleveryAddress;
     Button btn_order;
+    ImageButton showAddresses, arrow;
     FrameLayout frameShippingMethod;
     RelativeLayout voucher_layout;
+    final int GET_ADDRESS=123, GET_INFOSHIP =124;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,6 +88,7 @@ public class OrderFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -93,6 +107,9 @@ public class OrderFragment extends Fragment {
         btn_order = view.findViewById(R.id.btn_order);
         frameShippingMethod = view.findViewById(R.id.frameShippingMethod);
         voucher_layout = view.findViewById(R.id.voucher_layout);
+        showAddresses = view.findViewById(R.id.showAddresses);
+        arrow = view.findViewById(R.id.arrow);
+        deleveryAddress = view.findViewById(R.id.deleveryAddress);
         setData();
         BookBuyAdapter bookBuyAdapter = new BookBuyAdapter();
         recyclerViewBook.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -109,6 +126,27 @@ public class OrderFragment extends Fragment {
         frameShippingMethod.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new ShippingFragment()).addToBackStack("shippingfragment").commit();
         });
+        showAddresses.setOnClickListener(v ->{
+            getActivity().startActivityForResult(new Intent(getContext(), MyAddressActivity.class), GET_ADDRESS);
+        });
+        arrow.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), InfoShipActivity.class);
+            Address address = (Address) deleveryAddress.getTag();
+//            Toast.makeText(getContext(), address.toString(), Toast.LENGTH_SHORT).show();
+            if(address ==null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                builder.setTitle("Error")
+                        .setMessage("Vui lòng chọn địa chỉ giao hàng!")
+                        .show();
+            }else{
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("address", address);
+                intent.putExtras(bundle);
+//            getActivity().startActivity(intent);
+                getActivity().startActivityForResult(intent, GET_INFOSHIP);
+            }
+
+        });
         voucher_layout.setOnClickListener(v -> {
 
         });
@@ -119,9 +157,11 @@ public class OrderFragment extends Fragment {
             price_of_product += book.get(i).getPrice() * quantity.get(i);
         }
         price_of_products.setText((int)price_of_product + "");
-        int totalP = (int)price_of_product + Integer.valueOf(fee_ship.getText().toString());
+        int totalP = (int)price_of_product + Integer.valueOf((fee_ship.getText().toString().length()>0?fee_ship.getText().toString():"0"));
         total_amount.setText(totalP + "");
         total.setText(totalP + "");
 
     }
+
+
 }
