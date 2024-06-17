@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,7 +40,10 @@ public class InfoShipActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_info_ship);
         back = findViewById(R.id.backInfoShip);
         listInfoShip = findViewById(R.id.listInfoShip);
