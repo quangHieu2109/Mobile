@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,10 @@ public class AddAddressActivity extends AppCompatActivity {
     Context context;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_add_address);
         context = this;
         province = findViewById(R.id.province);
@@ -184,16 +188,27 @@ public class AddAddressActivity extends AppCompatActivity {
                     call.enqueue(new Callback<AApi<Address>>() {
                         @Override
                         public void onResponse(Call<AApi<Address>> call, Response<AApi<Address>> response) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogSuccess);
-                            builder.setTitle("Success")
-                                    .setMessage("Thêm địa chỉ thành công")
-                                    .show();
-                            result = true;
+                            if(response.body().isStatus()){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogSuccess);
+                                builder.setTitle("Success")
+                                        .setMessage(response.body().getMessage())
+                                        .show();
+                                result = true;
+                            }else{
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogError);
+                                builder.setTitle("Error")
+                                        .setMessage(response.body().getMessage())
+                                        .show();
+
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<AApi<Address>> call, Throwable t) {
-
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogError);
+                            builder.setTitle("Error")
+                                    .setMessage("Vui lòng thử lại sau")
+                                    .show();
                         }
                     });
                 }else{
