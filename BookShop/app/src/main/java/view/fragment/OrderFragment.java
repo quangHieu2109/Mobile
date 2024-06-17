@@ -129,7 +129,7 @@ public class OrderFragment extends Fragment {
         showAddresses.setOnClickListener(v ->{
             getActivity().startActivityForResult(new Intent(getContext(), MyAddressActivity.class), GET_ADDRESS);
         });
-        arrow.setOnClickListener(v ->{
+        frameShippingMethod.setOnClickListener(v ->{
             Intent intent = new Intent(getContext(), InfoShipActivity.class);
             Address address = (Address) deleveryAddress.getTag();
 //            Toast.makeText(getContext(), address.toString(), Toast.LENGTH_SHORT).show();
@@ -142,7 +142,6 @@ public class OrderFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("address", address);
                 intent.putExtras(bundle);
-//            getActivity().startActivity(intent);
                 getActivity().startActivityForResult(intent, GET_INFOSHIP);
             }
 
@@ -160,7 +159,6 @@ public class OrderFragment extends Fragment {
         int totalP = (int)price_of_product + Integer.valueOf((fee_ship.getText().toString().length()>0?fee_ship.getText().toString():"0"));
         total_amount.setText(totalP + "");
         total.setText(totalP + "");
-
     }
 
 
