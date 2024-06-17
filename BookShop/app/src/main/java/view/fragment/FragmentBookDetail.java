@@ -49,6 +49,7 @@ public class FragmentBookDetail extends Fragment {
     ImageButton btn_wishlist;
     TextView counterReview, title_book, author, release_book, description, rating;
     Button btn_buy, btn_submit, btn_back;
+    ImageButton showAddresses;
     ProgressBar star_1, star_2, star_3, star_4, star_5;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -115,6 +116,7 @@ public class FragmentBookDetail extends Fragment {
         rcv_similar.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         bookAdapterSimilar = new BookAdapter(getContext());
         rcv_similar.setAdapter(bookAdapterSimilar);
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             book = (BookResponse) bundle.getSerializable("book");

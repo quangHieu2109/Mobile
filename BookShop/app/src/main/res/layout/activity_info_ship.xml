@@ -15,7 +15,7 @@
        android:orientation="horizontal">
        <Button
 
-           android:id="@+id/backMyAdress"
+           android:id="@+id/backInfoShip"
            android:layout_width="45dp"
            android:layout_height="48dp"
            android:layout_marginVertical="30dp"
@@ -27,7 +27,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Địa chỉ của tôi"
+           android:text="Phương thức vân chuyển"
            android:layout_marginVertical="35dp"
            android:textSize="20dp"
            android:textColor="#fff"
@@ -35,26 +35,13 @@
            android:contentDescription=""/>
    </LinearLayout>
     <RadioGroup
-        android:id="@+id/listAdress"
+        android:id="@+id/listInfoShip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
     </RadioGroup>
 
-        <Button
-            android:id="@+id/btnAddAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/plus_icon"
-            app:iconGravity="textStart"
-            app:iconSize="30dp"
-            android:text="Thêm địa chỉ"
-            android:background="#757474"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:textColor="#FFFFFF"
 
-            />
 
 </LinearLayout>

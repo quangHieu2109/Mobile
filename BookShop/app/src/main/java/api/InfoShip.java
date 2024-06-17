@@ -2,9 +2,10 @@ package api;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class InfoShip {
+public class InfoShip implements Serializable {
     private String MA_DV_CHINH;
     private String TEN_DICHVU;
     private double GIA_CUOC;
@@ -76,7 +77,7 @@ public class InfoShip {
                 +"Thời gian giao: "+this.THOI_GIAN;
     }
 }
- class ExtraService{
+ class ExtraService implements Serializable{
     private String SERVICE_CODE;
     private String SERVICE_NAME;
     private String DESCRIPTION;
@@ -85,5 +86,14 @@ public class InfoShip {
          this.SERVICE_CODE = SERVICE_CODE;
          this.SERVICE_NAME = SERVICE_NAME;
          this.DESCRIPTION = DESCRIPTION;
+     }
+
+     @Override
+     public String toString() {
+         return "ExtraService{" +
+                 "SERVICE_CODE='" + SERVICE_CODE + '\'' +
+                 ", SERVICE_NAME='" + SERVICE_NAME + '\'' +
+                 ", DESCRIPTION='" + DESCRIPTION + '\'' +
+                 '}';
      }
  }
