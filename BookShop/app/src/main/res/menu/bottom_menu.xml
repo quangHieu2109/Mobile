@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_whitelist"
         android:title="Wishlist" />
     <item
-        android:id="@+id/purchased"
-        android:icon="@drawable/ic_purchase"
-        android:title="Purchased" />
+        android:id="@+id/account"
+        android:icon="@drawable/ic_user"
+        android:title="Account" />
 </menu>

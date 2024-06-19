@@ -2,14 +2,25 @@ package view.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.bookshop.R;
+
+import java.util.regex.Pattern;
+
+import api.AApi;
+import api.APIService;
+import request.AccuracyOTP;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +29,7 @@ import com.example.bookshop.R;
  */
 public class FragmentForgetPass extends Fragment {
     Button btnContinute;
+    EditText email;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,16 +77,46 @@ public class FragmentForgetPass extends Fragment {
         View view = inflater.inflate(R.layout.fragment_forget_pass, container, false);
         // Inflate the layout for this fragment
         btnContinute = view.findViewById(R.id.btn_continue);
+        email = view.findViewById(R.id.email);
         setBtnClickListeners();
         return view;
     }
     private void setBtnClickListeners() {
         btnContinute.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new FramentConfirmMail())
-                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack("fragmentConfirmEmail")
-                    .commit();
+            String emailInput = email.getText().toString();
+            if(emailInput.length() ==0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                builder.setTitle("Error")
+                        .setMessage("Vui lòng nhập email!")
+                        .show();
+            }else{
+                String emailRegex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$";
+                Pattern emailPattern = Pattern.compile(emailRegex);
+                if(!emailPattern.matcher(emailInput).matches()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                    builder.setTitle("Error")
+                            .setMessage("Email không hợp lệ!")
+                            .show();
+                }else{
+                    APIService.apiService.sendOTP(emailInput).enqueue(new Callback<AApi<Object>>() {
+                        @Override
+                        public void onResponse(Call<AApi<Object>> call, Response<AApi<Object>> response) {
+                            AccuracyOTP.setEmail(emailInput);
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container, new FramentConfirmMail())
+                                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    .addToBackStack("fragmentConfirmEmail")
+                                    .commit();
+                        }
+
+                        @Override
+                        public void onFailure(Call<AApi<Object>> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
         });
     }
 }
