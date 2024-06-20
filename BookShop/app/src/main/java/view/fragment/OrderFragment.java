@@ -43,12 +43,12 @@ public class OrderFragment extends Fragment {
     List<Book> book;
     List<Integer> quantity;
     RecyclerView recyclerViewBook;
-    TextView price_ship,date_ship,price_of_products,fee_ship,total_amount,total,deleveryAddress;
+    TextView price_ship, date_ship, price_of_products, fee_ship, total_amount, total, deleveryAddress;
     Button btn_order;
     ImageButton showAddresses, arrow;
     FrameLayout frameShippingMethod;
     RelativeLayout voucher_layout;
-    final int GET_ADDRESS=123, GET_INFOSHIP =124;
+    final int GET_ADDRESS = 123, GET_INFOSHIP = 124;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -114,31 +114,40 @@ public class OrderFragment extends Fragment {
         BookBuyAdapter bookBuyAdapter = new BookBuyAdapter();
         recyclerViewBook.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerViewBook.setAdapter(bookBuyAdapter);
-        bookBuyAdapter.setData(book,quantity);
+        bookBuyAdapter.setData(book, quantity);
         setClickListener();
         return view;
     }
+
     private void setClickListener() {
         btn_order.setOnClickListener(v -> {
-            VNPaySDK.openSDK(getContext(),Double.valueOf(total.getText().toString()));
+            if (fee_ship.getText().length() <= 0) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                builder.setTitle("Error")
+                        .setMessage("Shipping method empty!")
+                        .show();
+            } else {
+                VNPaySDK.openSDK(getContext(), Double.valueOf(total.getText().toString()));
+
+            }
 
         });
         frameShippingMethod.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new ShippingFragment()).addToBackStack("shippingfragment").commit();
         });
-        showAddresses.setOnClickListener(v ->{
+        showAddresses.setOnClickListener(v -> {
             getActivity().startActivityForResult(new Intent(getContext(), MyAddressActivity.class), GET_ADDRESS);
         });
-        frameShippingMethod.setOnClickListener(v ->{
+        frameShippingMethod.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), InfoShipActivity.class);
             Address address = (Address) deleveryAddress.getTag();
 //            Toast.makeText(getContext(), address.toString(), Toast.LENGTH_SHORT).show();
-            if(address ==null){
+            if (address == null) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
                 builder.setTitle("Error")
                         .setMessage("Vui lòng chọn địa chỉ giao hàng!")
                         .show();
-            }else{
+            } else {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("address", address);
                 intent.putExtras(bundle);
@@ -150,15 +159,20 @@ public class OrderFragment extends Fragment {
 
         });
     }
+
     private void setData() {
         double price_of_product = 0;
         for (int i = 0; i < book.size(); i++) {
             price_of_product += book.get(i).getPrice() * quantity.get(i);
         }
-        price_of_products.setText((int)price_of_product + "");
-        int totalP = (int)price_of_product + Integer.valueOf((fee_ship.getText().toString().length()>0?fee_ship.getText().toString():"0"));
+        price_of_products.setText((int) price_of_product + "");
+        int totalP = (int) price_of_product + Integer.valueOf((fee_ship.getText().toString().length() > 0 ? fee_ship.getText().toString() : "0"));
         total_amount.setText(totalP + "");
         total.setText(totalP + "");
+    }
+
+    public long getPriceShip() {
+        return Long.valueOf(price_ship.getText().toString());
     }
 
 

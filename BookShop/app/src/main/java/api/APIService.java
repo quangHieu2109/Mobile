@@ -12,6 +12,7 @@ import model.Province;
 import model.Ward;
 import model.Wishlist;
 import request.AddressRequest;
+import request.CreateOrderRequest;
 import request.InfoShipRequest;
 import request.LoginRequest;
 import retrofit2.Call;
@@ -29,7 +30,7 @@ public interface APIService {
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("https://0aa2-2405-4802-93a1-2609-bd01-8139-3ac7-d1cf.ngrok-free.app/")
+            .baseUrl("http://103.118.29.65")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -86,6 +87,10 @@ public interface APIService {
     @GET("Address/getAddress")
     Call<AApi<List<Address>>> getAddress(@Header("Authorization") String token);
 
+    @POST("Cart/addCartItemPId={productId}")
+    Call<AApi<AddCartItemResponse>> addCartItemById(@Header("Authorization") String token,@Path("productId")int id,@Query("quantity") int quantity);
+    @POST("Order/createOrder")
+    Call<AApi<Object>> createOrder(@Header("Authorization") String token, @Body CreateOrderRequest createOrderRequest);
     @POST("Address/addAddress")
     Call<AApi<Address>> addAddress(@Header("Authorization") String token, @Body AddressRequest addressRequest);
     @POST("getPriceAll")
