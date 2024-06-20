@@ -157,18 +157,19 @@
             <Button
                 android:id="@+id/logout"
                 android:layout_width="180dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Logout"
                 style="@style/AccountIn4Left"
-                android:background="#787777"
+                android:backgroundTint="#787777"
+               android:gravity="center_horizontal"
                 />
             <Button
                 android:id="@+id/adminPage"
                 android:layout_width="180dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="AdminPage"
                 style="@style/AccountIn4Right"
-                android:background="@color/back_ground"/>
+                android:backgroundTint="#FF9800"/>
 
         </RelativeLayout>
     </LinearLayout>

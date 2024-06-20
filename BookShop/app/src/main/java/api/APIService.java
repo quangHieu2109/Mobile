@@ -97,6 +97,8 @@ public interface APIService {
     @POST("getPriceAll")
     Call<List<InfoShip>> getInfoShip(@Header("token") String token, @Body InfoShipRequest infoShipRequest);
 
+    @POST("loginGoogleUser/token={token}")
+    Call<AApi<Login>> loginGoogle(@Path("token") String token);
     @POST("User/sendOTP/email={email}")
     Call<AApi<Object>> sendOTP(@Path("email") String email);
     @POST("User/accuracyOTP")

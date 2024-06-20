@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.bookshop.R;
 
@@ -30,6 +31,7 @@ import retrofit2.Response;
 public class FragmentForgetPass extends Fragment {
     Button btnContinute;
     EditText email;
+    ProgressBar progress_bar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +80,7 @@ public class FragmentForgetPass extends Fragment {
         // Inflate the layout for this fragment
         btnContinute = view.findViewById(R.id.btn_continue);
         email = view.findViewById(R.id.email);
+        progress_bar = view.findViewById(R.id.progress_bar);
         setBtnClickListeners();
         return view;
     }
@@ -98,10 +101,12 @@ public class FragmentForgetPass extends Fragment {
                             .setMessage("Email không hợp lệ!")
                             .show();
                 }else{
+                    progress_bar.setVisibility(View.VISIBLE);
                     APIService.apiService.sendOTP(emailInput).enqueue(new Callback<AApi<Object>>() {
                         @Override
                         public void onResponse(Call<AApi<Object>> call, Response<AApi<Object>> response) {
                             AccuracyOTP.setEmail(emailInput);
+                            progress_bar.setVisibility(View.GONE);
                             getActivity().getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.container, new FramentConfirmMail())
                                     .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ public class InfoShipActivity extends AppCompatActivity {
     RadioGroup listInfoShip;
     Context context;
     String token = "F72D14C609C4C693ECDA34653EBCF032";
+    ProgressBar progress_bar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class InfoShipActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_ship);
         back = findViewById(R.id.backInfoShip);
         listInfoShip = findViewById(R.id.listInfoShip);
+        progress_bar = findViewById(R.id.progress_bar);
         context = this;
         Address address = (Address) getIntent().getExtras().getSerializable("address");
         APIService.viettheoAPI.getAllProvince(token).enqueue(new Callback<ViettheoResponse<Province>>() {
@@ -63,6 +67,7 @@ public class InfoShipActivity extends AppCompatActivity {
                         break;
                     }
                 }
+                progress_bar.setVisibility(View.VISIBLE);
                 APIService.viettheoAPI.getDistrict(token, provinceId).enqueue(new Callback<ViettheoResponse<District>>() {
 
                     @Override
@@ -104,6 +109,7 @@ public class InfoShipActivity extends AppCompatActivity {
                                     radioButton.setLayoutParams(params);
 
 //                    radioButton.setMa;
+                                    progress_bar.setVisibility(View.GONE);
                                     listInfoShip.addView(radioButton);
                                 }
 
