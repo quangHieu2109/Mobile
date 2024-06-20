@@ -72,9 +72,9 @@ public class InfoShip implements Serializable {
 
 
     public String toString() {
-        return "Giao hàng: "+this.TEN_DICHVU+"\n"
-                +"Đơn giá: "+this.GIA_CUOC+"\n"
-                +"Thời gian giao: "+this.THOI_GIAN;
+        return "Service name: "+this.TEN_DICHVU+"\n"
+                +"Unit price: "+this.GIA_CUOC+"\n"
+                +"Delivery time: "+this.THOI_GIAN;
     }
 }
  class ExtraService implements Serializable{
