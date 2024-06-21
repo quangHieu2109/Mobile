@@ -8,15 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.bookshop.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import api.BookResponse;
 import model.Book;
+import view.fragment.FragmentAccount;
 import view.fragment.FragmentBookDetail;
 import view.fragment.FragmentBottomSheet;
 import view.fragment.FragmentDiscover;
@@ -60,9 +59,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentSearch.IS
             if (item.getItemId() == R.id.whitelist) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentWishlist()).commit();
             }
-//            if (item.getItemId() == R.id.menu) {
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
-//            }
+            if (item.getItemId() == R.id.account) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAccount()).commit();
+            }
 //
 //
             return true;

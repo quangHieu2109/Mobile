@@ -2,6 +2,7 @@ package view.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.bookshop.R;
+import com.noobcode.otpview.OTPView;
+
+import api.AApi;
+import api.APIService;
+import request.AccuracyOTP;
+import request.AccuracyRequest;
+import request.ChangePasswordOTP;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +29,8 @@ import com.example.bookshop.R;
  */
 public class FramentConfirmMail extends Fragment {
     Button btnConfirmMail;
+    OTPView otp;
+    String otpInput;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,16 +78,46 @@ public class FramentConfirmMail extends Fragment {
         View view = inflater.inflate(R.layout.fragment_frament_confirm_mail, container, false);
         // Inflate the layout for this fragment
         btnConfirmMail = view.findViewById(R.id.btn_confirm);
+        otp = view.findViewById(R.id.otp);
+
         setBtnClickListeners();
         return view;
     }
     private void setBtnClickListeners() {
         btnConfirmMail.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new FragmentCreateNewPassword())
-                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack("fragmentCreateNewPassword")
-                    .commit();
+            otpInput = otp.getText().toString();
+            if(otpInput.length() != 6 ){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                builder.setTitle("Error")
+                        .setMessage("Vui lòng nhập đầy đủ OTP!")
+                        .show();
+            }else{
+                AccuracyOTP.setOtp(otpInput);
+                APIService.apiService.accuracyOTP(new AccuracyRequest(AccuracyOTP.getEmail(), otpInput)).enqueue(new Callback<AApi<Object>>() {
+                    @Override
+                    public void onResponse(Call<AApi<Object>> call, Response<AApi<Object>> response) {
+                        if(response.body().isStatus()){
+
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container, new FragmentCreateNewPassword())
+                                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    .addToBackStack("fragmentCreateNewPassword")
+                                    .commit();
+                        }else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                            builder.setTitle("Error")
+                                    .setMessage(response.body().getMessage())
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AApi<Object>> call, Throwable t) {
+
+                    }
+                });
+            }
+
         });
     }
 }

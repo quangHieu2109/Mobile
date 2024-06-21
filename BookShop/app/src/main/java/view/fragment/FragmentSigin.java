@@ -31,7 +31,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
+import api.AApi;
 import api.APIService;
 import api.Login;
 import request.LoginRequest;
@@ -105,7 +107,10 @@ public class FragmentSigin extends Fragment {
         btnForgetPass = view.findViewById(R.id.btn_forgot_password);
         btnSigin = view.findViewById(R.id.btn_sign_in);
         btnLoginByGoogle = view.findViewById(R.id.btn_login_gg);
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestIdToken("847546457050-0i16i95g131e3smcs5j3mofmon7n7b0o.apps.googleusercontent.com").requestProfile().build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
+                .requestIdToken("847546457050-0i16i95g131e3smcs5j3mofmon7n7b0o.apps.googleusercontent.com")
+                .requestProfile()
+                .build();
         signInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         setBtnClickListeners();
@@ -156,7 +161,9 @@ public class FragmentSigin extends Fragment {
 
         });
         btnLoginByGoogle.setOnClickListener(v -> {
+
             Intent signInIntent = signInClient.getSignInIntent();
+//            startActivityForResult(signInIntent, 126);
             someActivityResultLauncher.launch(signInIntent);
 
         });
@@ -165,7 +172,18 @@ public class FragmentSigin extends Fragment {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            APIService.apiService.loginGoogle(account.getIdToken()).enqueue(new Callback<AApi<Login>>() {
+                @Override
+                public void onResponse(Call<AApi<Login>> call, Response<AApi<Login>> response) {
+                    Login.setToken(response.body().getData().toString());
+                    startActivity(new Intent(getContext(), HomeActivity.class));
+                }
 
+                @Override
+                public void onFailure(Call<AApi<Login>> call, Throwable t) {
+
+                }
+            });
             
             Log.d("Id",account.getIdToken()+"");
             // Signed in successfully, show authenticated UI.
