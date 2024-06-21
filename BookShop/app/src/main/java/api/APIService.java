@@ -9,10 +9,13 @@ import java.util.List;
 import model.Address;
 import model.District;
 import model.Province;
+import model.User;
 import model.Ward;
 import model.Wishlist;
+import request.AccuracyOTP;
+import request.AccuracyRequest;
 import request.AddressRequest;
-import request.CreateOrderRequest;
+import request.ChangePasswordOTP;
 import request.InfoShipRequest;
 import request.LoginRequest;
 import retrofit2.Call;
@@ -30,7 +33,7 @@ public interface APIService {
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://103.118.29.65")
+            .baseUrl("http://103.118.29.65/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -46,6 +49,8 @@ public interface APIService {
             .create(APIService.class);
     @POST("user/login")
     Call<Login> login(@Body LoginRequest loginRequest);
+    @GET("user/getInfor")
+    Call<AApi<User>> getInfor(@Header("Authorization") String token);
 
     @GET("product/getSimilarProduct")
     Call<AApi<List<BookResponse>>> getSimilarBook(@Query("productId") long id);
@@ -87,12 +92,19 @@ public interface APIService {
     @GET("Address/getAddress")
     Call<AApi<List<Address>>> getAddress(@Header("Authorization") String token);
 
-    @POST("Cart/addCartItemPId={productId}")
-    Call<AApi<AddCartItemResponse>> addCartItemById(@Header("Authorization") String token,@Path("productId")int id,@Query("quantity") int quantity);
-    @POST("Order/createOrder")
-    Call<AApi<Object>> createOrder(@Header("Authorization") String token, @Body CreateOrderRequest createOrderRequest);
     @POST("Address/addAddress")
     Call<AApi<Address>> addAddress(@Header("Authorization") String token, @Body AddressRequest addressRequest);
     @POST("getPriceAll")
     Call<List<InfoShip>> getInfoShip(@Header("token") String token, @Body InfoShipRequest infoShipRequest);
+
+    @POST("loginGoogleUser/token={token}")
+    Call<AApi<Login>> loginGoogle(@Path("token") String token);
+    @POST("User/sendOTP/email={email}")
+    Call<AApi<Object>> sendOTP(@Path("email") String email);
+    @POST("User/accuracyOTP")
+    Call<AApi<Object>> accuracyOTP(@Body AccuracyRequest accuracyRequest);
+    @POST("User/changePasswordByOTP")
+    Call<AApi<Object>> changePasswordOTP(@Body ChangePasswordOTP changePasswordOTP);
+
+
 }

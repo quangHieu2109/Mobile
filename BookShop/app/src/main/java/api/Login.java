@@ -1,7 +1,7 @@
 package api;
 
 public class Login extends AApi<String>{
-    private static String token;
+    private static String token="";
 
     public Login(boolean status, String message, String data) {
         super(status, message, data);
