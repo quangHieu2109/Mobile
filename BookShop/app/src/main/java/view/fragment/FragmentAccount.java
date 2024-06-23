@@ -20,6 +20,7 @@ import model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import view.activity.ActivityOrderManagement;
 import view.activity.HomeActivity;
 import view.activity.MainApp;
 
@@ -93,6 +94,9 @@ public class FragmentAccount extends Fragment {
                 email.setText((user.getEmail()!= null)?user.getEmail():"");
                 phoneNumber.setText((user.getPhoneNumber()!= null)?user.getPhoneNumber():"");
                 gender.setText(user.getGender() ==0?"Male":"Famale");
+                if(!user.getRole().equalsIgnoreCase("CUSTOMER")){
+                    adminPage.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -107,6 +111,9 @@ public class FragmentAccount extends Fragment {
         logout.setOnClickListener(v ->{
             Login.setToken("");
             startActivity(new Intent(getContext(), MainApp.class));
+        });
+        adminPage.setOnClickListener(v ->{
+            startActivity(new Intent(getContext(), ActivityOrderManagement.class));
         });
     }
 }

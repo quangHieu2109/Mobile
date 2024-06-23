@@ -6,6 +6,7 @@
     </style>
 
     <style name="Theme.BookShop" parent="Base.Theme.BookShop" />
+
     <color name="back_ground">#191A21</color>
     <color name="text_color">#FFF</color>
 </resources>
