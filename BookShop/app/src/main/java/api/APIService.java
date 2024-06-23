@@ -110,5 +110,6 @@ public interface APIService {
     Call<AApi<List<OrderResponse>>> getOrdersByStatus(@Header("Authorization") String token, @Path("status") int status);
     @PUT("Order/updateStatus/orderId={orderId}&status={status}")
     Call<AApi<Object>> updateOrderStatus(@Header("Authorization") String token, @Path("orderId") long orderId, @Path("status") int status);
-
+    @GET("Order/getOrderDetailById/orderId={orderId}")
+    Call<AApi<OrderResponse>> getOrdersByOrderId(@Header("Authorization") String token, @Path("orderId") long orderId);
 }

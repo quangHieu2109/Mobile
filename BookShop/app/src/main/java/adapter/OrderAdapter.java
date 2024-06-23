@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import model.OrderStatus;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import view.activity.ActivityOrderDetail;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
     Context context;
@@ -54,7 +56,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.orderId.setText( orderResponse.getId()+"");
         holder.orderAt.setText(orderResponse.getCreatedAt().toString());
         holder.customer.setText(orderResponse.getUser().getFullName());
-        holder.totalPrice.setText((int)orderResponse.getDeliveryPrice()+"");
+        holder.totalPrice.setText((int)orderResponse.getTotalPrice()+"");
         List<OrderStatus> orderStatuses = OrderStatus.generatedOrderStatus(orderResponse.getStatus());
         ArrayAdapter<OrderStatus> adapterStatus = new ArrayAdapter<>(this.context, android.R.layout.simple_spinner_item, orderStatuses);
         adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,6 +82,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
+        });
+        holder.detail.setOnClickListener(v ->{
+            Intent intent = new Intent(context, ActivityOrderDetail.class);
+            intent.putExtra("orderId", orderResponse.getId());
+            context.startActivity(intent);
         });
         holder.save.setOnClickListener(v ->{
             long orderId = Long.parseLong(holder.orderId.getText().toString());

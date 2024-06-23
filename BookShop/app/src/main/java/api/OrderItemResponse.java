@@ -50,7 +50,8 @@ public class OrderItemResponse {
     }
 
     public double getPrice() {
-        return price;
+        return quantity * (1 - discount/100)* product.getPrice();
+
     }
 
     public void setPrice(double price) {

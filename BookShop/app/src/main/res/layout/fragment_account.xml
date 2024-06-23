@@ -160,8 +160,7 @@
                 android:layout_height="60dp"
                 android:text="Logout"
                 style="@style/AccountIn4Left"
-                android:backgroundTint="#787777"
-               android:gravity="center_horizontal"
+                android:backgroundTint="#5A5757"
                 />
             <Button
                 android:id="@+id/adminPage"

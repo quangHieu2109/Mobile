@@ -29,6 +29,30 @@ public class OrderStatus {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
+    public static OrderStatus getStatus(int status){
+        OrderStatus  result = null;
+        switch (status){
+            case 0:
+                result=(new OrderStatus(0, "Order Success"));
+
+                break;
+            case 1:
+                result=(new OrderStatus(1, "Are delivering"));
+
+                break;
+            case 2:
+                result=(new OrderStatus(2, "Successful delivery"));
+
+                break;
+            case 3:
+                result=(new OrderStatus(3, "Order canceled"));
+                break;
+            case 4:
+                result=(new OrderStatus(4, "Return the order"));
+                break;
+        }
+        return result ;
+    }
     public static List<OrderStatus> generatedOrderStatus(int status){
         List<OrderStatus> result = new ArrayList<>();
         switch (status){

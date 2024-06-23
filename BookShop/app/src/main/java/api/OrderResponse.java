@@ -89,4 +89,12 @@ public class OrderResponse {
     public void setItems(List<OrderItemResponse> items) {
         this.items = items;
     }
+    public double getTotalPrice(){
+        double result =0;
+        for(OrderItemResponse orderItemResponse: this.items){
+            result += orderItemResponse.getPrice();
+        }
+
+        return result;
+    }
 }
