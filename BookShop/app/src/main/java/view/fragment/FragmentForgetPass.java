@@ -105,14 +105,25 @@ public class FragmentForgetPass extends Fragment {
                     APIService.apiService.sendOTP(emailInput).enqueue(new Callback<AApi<Object>>() {
                         @Override
                         public void onResponse(Call<AApi<Object>> call, Response<AApi<Object>> response) {
-                            AccuracyOTP.setEmail(emailInput);
-                            progress_bar.setVisibility(View.GONE);
-                            getActivity().getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.container, new FramentConfirmMail())
-                                    .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                    .addToBackStack("fragmentConfirmEmail")
-                                    .commit();
-                        }
+
+                                if (response.body().isStatus()) {
+                                    AccuracyOTP.setEmail(emailInput);
+                                    progress_bar.setVisibility(View.GONE);
+                                    getActivity().getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.container, new FramentConfirmMail())
+                                            .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                            .addToBackStack("fragmentConfirmEmail")
+                                            .commit();
+                                } else {
+                                    progress_bar.setVisibility(View.GONE);
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                                    builder.setTitle("Error")
+                                            .setMessage(response.body().getMessage())
+                                            .show();
+                                }
+                            }
+
 
                         @Override
                         public void onFailure(Call<AApi<Object>> call, Throwable t) {

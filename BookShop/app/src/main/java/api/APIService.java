@@ -26,6 +26,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -105,6 +106,9 @@ public interface APIService {
     Call<AApi<Object>> accuracyOTP(@Body AccuracyRequest accuracyRequest);
     @POST("User/changePasswordByOTP")
     Call<AApi<Object>> changePasswordOTP(@Body ChangePasswordOTP changePasswordOTP);
-
+    @GET("Order/getOrderDetailByStatus/status={status}")
+    Call<AApi<List<OrderResponse>>> getOrdersByStatus(@Header("Authorization") String token, @Path("status") int status);
+    @PUT("Order/updateStatus/orderId={orderId}&status={status}")
+    Call<AApi<Object>> updateOrderStatus(@Header("Authorization") String token, @Path("orderId") long orderId, @Path("status") int status);
 
 }

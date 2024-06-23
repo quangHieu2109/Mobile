@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/status0"
+    android:icon="@drawable/order_success"
+    android:title="" />
+<item
+    android:id="@+id/status1"
+    android:icon="@drawable/delivering"
+    android:title="" />
+    <item
+        android:id="@+id/status2"
+        android:icon="@drawable/successful_delivery"
+        android:title="" />
+    <item
+        android:id="@+id/status3"
+        android:icon="@drawable/successful_delivery"
+        android:title="" />
+    <item
+        android:id="@+id/status4"
+        android:icon="@drawable/return_order"
+        android:title="" />
+</menu>
