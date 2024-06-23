@@ -31,4 +31,20 @@
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:popupBackground">?attr/colorSurface</item>
     </style>
+    <style name="AccountIn4Left" >
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+    <style name="AccountIn4Right" >
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+
+    </style>
 </resources>

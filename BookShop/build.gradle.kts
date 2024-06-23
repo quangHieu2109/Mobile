@@ -1,3 +1,9 @@
+buildscript {
+    dependencies {
+        classpath("com.google.gms:google-services:4.4.2")
+//        classpath("com.google.firebase:firebase-auth:21.0.8")
+    }
+}
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {

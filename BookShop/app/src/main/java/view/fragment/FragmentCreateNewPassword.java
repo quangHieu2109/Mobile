@@ -3,16 +3,26 @@ package view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.bookshop.R;
 
+import api.AApi;
+import api.APIService;
+import request.AccuracyOTP;
+import request.ChangePasswordOTP;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import view.activity.HomeActivity;
+import view.activity.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +31,7 @@ import view.activity.HomeActivity;
  */
 public class FragmentCreateNewPassword extends Fragment {
     Button btnContinute;
+    EditText confirmPassword, password;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,13 +79,43 @@ public class FragmentCreateNewPassword extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_new_password, container, false);
         btnContinute = view.findViewById(R.id.btn_continue);
+        confirmPassword = view.findViewById(R.id.confirmPassword);
+        password = view.findViewById(R.id.password);
         setBtnClickListeners();
         return view;
     }
     private void setBtnClickListeners() {
         btnContinute.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), HomeActivity.class);
-            startActivity(intent);
+            String passwordInput = password.getText().toString();
+            String confirmPasswordInput = confirmPassword.getText().toString();
+            if(passwordInput.length() ==0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                builder.setTitle("Error")
+                        .setMessage("Vui lòng nhập mật khẩu mới!")
+                        .show();
+            }else{
+                if(!passwordInput.equals(confirmPasswordInput)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
+                    builder.setTitle("Error")
+                            .setMessage("Mật khẩu xác nhận không chính xác!")
+                            .show();
+                }else{
+                    ChangePasswordOTP changePasswordOTP = new ChangePasswordOTP(AccuracyOTP.getEmail(), passwordInput);
+                    APIService.apiService.changePasswordOTP(changePasswordOTP).enqueue(new Callback<AApi<Object>>() {
+                        @Override
+                        public void onResponse(Call<AApi<Object>> call, Response<AApi<Object>> response) {
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(Call<AApi<Object>> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
         });
     }
 }
