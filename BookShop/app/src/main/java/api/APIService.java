@@ -16,6 +16,7 @@ import request.AccuracyOTP;
 import request.AccuracyRequest;
 import request.AddressRequest;
 import request.ChangePasswordOTP;
+import request.CreateOrderRequest;
 import request.InfoShipRequest;
 import request.LoginRequest;
 import retrofit2.Call;
@@ -96,9 +97,12 @@ public interface APIService {
     Call<AApi<Address>> addAddress(@Header("Authorization") String token, @Body AddressRequest addressRequest);
     @POST("getPriceAll")
     Call<List<InfoShip>> getInfoShip(@Header("token") String token, @Body InfoShipRequest infoShipRequest);
-
-    @POST("loginGoogleUser/token={token}")
-    Call<AApi<Login>> loginGoogle(@Path("token") String token);
+    @POST("User/changePassword")
+    Call<AApi<Object>> createOrder(@Header("Authorization") String token, @Body CreateOrderRequest createOrderRequest);
+    @POST("Cart/addCartItemPId={productId}")
+    Call<AApi<AddCartItemResponse>> addCartItemById(@Header("Authorization") String token, @Path("productId") int id, @Query("quantity") int quantity);
+    @POST("User/loginGoogleUser/token={token}")
+    Call<AApi<String>> loginGoogle(@Path("token") String token);
     @POST("User/sendOTP/email={email}")
     Call<AApi<Object>> sendOTP(@Path("email") String email);
     @POST("User/accuracyOTP")
