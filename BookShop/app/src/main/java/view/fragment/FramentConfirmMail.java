@@ -93,6 +93,7 @@ public class FramentConfirmMail extends Fragment {
                         .show();
             }else{
                 AccuracyOTP.setOtp(otpInput);
+
                 APIService.apiService.accuracyOTP(new AccuracyRequest(AccuracyOTP.getEmail(), otpInput)).enqueue(new Callback<AApi<Object>>() {
                     @Override
                     public void onResponse(Call<AApi<Object>> call, Response<AApi<Object>> response) {

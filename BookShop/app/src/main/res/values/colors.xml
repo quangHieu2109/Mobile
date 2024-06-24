@@ -6,4 +6,6 @@
     <color name="red">#F12626</color>
     <color name="green">#25EF28</color>
     <color name="DDD">#ddd</color>
+    <color name="btnDisable">#E9A59072</color>
+    <color name="btnEnable">#FF9800</color>
 </resources>

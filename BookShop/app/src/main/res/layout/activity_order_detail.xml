@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#191A21"
+    tools:context="view.activity.ActivityOrderDetail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="693dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/backOrderDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:backgroundTint="#181A20"
+                android:contentDescription="123"
+                android:textColor="@color/white"
+                app:icon="@drawable/back"
+                app:iconGravity="textStart"
+                app:iconSize="30dp" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="35dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription=""
+                android:text="Order detail"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="583dp"
+            android:background="@drawable/border_drawable"
+            android:backgroundTint="@color/back_ground"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/AccountIn4Left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID" />
+
+                <TextView
+                    android:id="@+id/orderId"
+                    style="@style/AccountIn4Right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123456789" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/AccountIn4Left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Customer" />
+
+                <TextView
+                    android:id="@+id/customer"
+                    style="@style/AccountIn4Right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tui là khách hàng nè" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/AccountIn4Left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order at" />
+
+                <TextView
+                    android:id="@+id/orderAt"
+                    style="@style/AccountIn4Right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024-6-22 11:46:00" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/AccountIn4Left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total price" />
+
+                <TextView
+                    android:id="@+id/totalPrice"
+                    style="@style/AccountIn4Right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20.000.000" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/AccountIn4Left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status" />
+
+                <TextView
+                    android:id="@+id/status"
+                    style="@style/AccountIn4Right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order success" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/AccountIn4Left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order items" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_list_order_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
