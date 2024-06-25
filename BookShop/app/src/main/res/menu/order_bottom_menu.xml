@@ -14,7 +14,7 @@
         android:title="" />
     <item
         android:id="@+id/status3"
-        android:icon="@drawable/successful_delivery"
+        android:icon="@drawable/cancel_order"
         android:title="" />
     <item
         android:id="@+id/status4"
