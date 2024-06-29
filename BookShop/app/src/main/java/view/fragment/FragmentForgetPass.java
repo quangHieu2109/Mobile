@@ -93,14 +93,8 @@ public class FragmentForgetPass extends Fragment {
                         .setMessage("Vui lòng nhập email!")
                         .show();
             }else{
-                String emailRegex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$";
-                Pattern emailPattern = Pattern.compile(emailRegex);
-                if(!emailPattern.matcher(emailInput).matches()){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogError);
-                    builder.setTitle("Error")
-                            .setMessage("Email không hợp lệ!")
-                            .show();
-                }else{
+
+
                     progress_bar.setVisibility(View.VISIBLE);
                     APIService.apiService.sendOTP(emailInput).enqueue(new Callback<AApi<Object>>() {
                         @Override
@@ -131,7 +125,7 @@ public class FragmentForgetPass extends Fragment {
                         }
                     });
                 }
-            }
+
 
         });
     }
