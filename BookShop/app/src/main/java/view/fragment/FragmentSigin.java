@@ -172,22 +172,25 @@ public class FragmentSigin extends Fragment {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            APIService.apiService.loginGoogle(account.getIdToken()).enqueue(new Callback<AApi<Login>>() {
+
+            APIService.apiService.loginGoogle(account.getIdToken()).enqueue(new Callback<AApi<String>>() {
                 @Override
-                public void onResponse(Call<AApi<Login>> call, Response<AApi<Login>> response) {
-                    Login.setToken(response.body().getData().toString());
+                public void onResponse(Call<AApi<String>> call, Response<AApi<String>> response) {
+
+                    Login.setToken(response.body().getData());
+                    Toast.makeText(getActivity(), "Welcome "+ account.getEmail(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), HomeActivity.class));
                 }
 
                 @Override
-                public void onFailure(Call<AApi<Login>> call, Throwable t) {
+                public void onFailure(Call<AApi<String>> call, Throwable t) {
 
                 }
             });
             
-            Log.d("Id",account.getIdToken()+"");
+
             // Signed in successfully, show authenticated UI.
-            Toast.makeText(getActivity(), "Welcome "+ account.getEmail(), Toast.LENGTH_SHORT).show();
+
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
