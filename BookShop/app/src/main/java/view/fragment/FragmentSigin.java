@@ -41,6 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import view.activity.HomeActivity;
+import view.activity.RegisterActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +54,7 @@ public class FragmentSigin extends Fragment {
     ActivityResultLauncher<Intent> someActivityResultLauncher;
     GoogleSignInClient signInClient;
 
-    Button btnForgetPass, btnSigin;
+    Button btnForgetPass, btnSigin, btnRegister;
     ImageButton btnLoginByGoogle;
 
 
@@ -107,6 +108,7 @@ public class FragmentSigin extends Fragment {
         btnForgetPass = view.findViewById(R.id.btn_forgot_password);
         btnSigin = view.findViewById(R.id.btn_sign_in);
         btnLoginByGoogle = view.findViewById(R.id.btn_login_gg);
+        btnRegister = view.findViewById(R.id.btn_register);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
                 .requestIdToken("847546457050-0i16i95g131e3smcs5j3mofmon7n7b0o.apps.googleusercontent.com")
                 .requestProfile()
@@ -167,7 +169,10 @@ public class FragmentSigin extends Fragment {
             someActivityResultLauncher.launch(signInIntent);
 
         });
-
+        btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), RegisterActivity.class);
+            startActivity(intent);
+        });
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
