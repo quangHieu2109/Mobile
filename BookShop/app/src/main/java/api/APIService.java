@@ -15,10 +15,12 @@ import model.Wishlist;
 import request.AccuracyOTP;
 import request.AccuracyRequest;
 import request.AddressRequest;
+import request.ChangeInforRequest;
 import request.ChangePasswordOTP;
 import request.CreateOrderRequest;
 import request.InfoShipRequest;
 import request.LoginRequest;
+import request.RegisterRequest;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -98,7 +100,7 @@ public interface APIService {
     Call<AApi<Address>> addAddress(@Header("Authorization") String token, @Body AddressRequest addressRequest);
     @POST("getPriceAll")
     Call<List<InfoShip>> getInfoShip(@Header("token") String token, @Body InfoShipRequest infoShipRequest);
-    @POST("User/changePassword")
+    @POST("Order/createOrder")
     Call<AApi<Object>> createOrder(@Header("Authorization") String token, @Body CreateOrderRequest createOrderRequest);
     @POST("Cart/addCartItemPId={productId}")
     Call<AApi<AddCartItemResponse>> addCartItemById(@Header("Authorization") String token, @Path("productId") int id, @Query("quantity") int quantity);
@@ -110,6 +112,12 @@ public interface APIService {
     Call<AApi<Object>> accuracyOTP(@Body AccuracyRequest accuracyRequest);
     @POST("User/changePasswordByOTP")
     Call<AApi<Object>> changePasswordOTP(@Body ChangePasswordOTP changePasswordOTP);
+    @POST("User/changePassword")
+    Call<AApi<Object>> changePassword(@Header("Authorization") String token, @Query("password") String password);
+    @POST("User/changeInfor")
+    Call<AApi<Object>> changeInfor(@Header("Authorization") String token, @Body ChangeInforRequest changeInforRequest);
+    @POST("User/register")
+    Call<AApi<Object>> register( @Body RegisterRequest registerRequest);
     @GET("Order/getOrderDetailByStatus/status={status}")
     Call<AApi<List<OrderResponse>>> getOrdersByStatus(@Header("Authorization") String token, @Path("status") int status);
     @PUT("Order/updateStatus/orderId={orderId}&status={status}")
