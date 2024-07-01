@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.bookshop.R;
 
@@ -34,6 +35,7 @@ AutoCompleteTextView autoCompleteTextView;
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     Button btn_back;
     ISendData iSendData;
+    ImageButton btn_search;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -86,6 +88,7 @@ AutoCompleteTextView autoCompleteTextView;
         SearchBookAdapter searchBookAdapter = new SearchBookAdapter(this.getContext(),R.layout.search_item_book,getData());
         autoCompleteTextView.setAdapter(searchBookAdapter);
         btn_back = view.findViewById(R.id.back);
+        btn_search = view.findViewById(R.id.btn_search);
         setBtnClickListeners();
         return view;
     }

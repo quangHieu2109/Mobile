@@ -15,7 +15,7 @@ import adapter.OrderItemAdapter;
 import api.AApi;
 import api.APIService;
 import api.Login;
-import api.OrderResponse;
+import model.OrderResponse;
 import model.OrderStatus;
 import retrofit2.Call;
 import retrofit2.Callback;

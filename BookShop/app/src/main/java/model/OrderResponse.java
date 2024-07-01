@@ -1,9 +1,7 @@
-package api;
+package model;
 
 import java.sql.Timestamp;
 import java.util.List;
-
-import model.User;
 
 public class OrderResponse {
     private long id;

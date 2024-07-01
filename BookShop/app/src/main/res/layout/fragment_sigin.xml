@@ -145,14 +145,13 @@ android:layout_marginRight="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-
             <Button
-                android:id="@+id/btn_sign_in"
+                android:id="@+id/btn_register"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="60dp"
                 android:backgroundTint="#F89300"
-                android:text="Sign in"
+                android:text="Register"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -166,14 +165,15 @@ android:layout_marginRight="20dp"
                 android:layout_marginHorizontal="10dp"/>
 
             <Button
-                android:id="@+id/btn_register"
+                android:id="@+id/btn_sign_in"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="60dp"
                 android:backgroundTint="#F89300"
-                android:text="Register"
+                android:text="Sign in"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
 
         </LinearLayout>
 
