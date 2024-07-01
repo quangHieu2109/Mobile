@@ -21,6 +21,12 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
+            android:name="view.activity.ChangeInforActivity"
+            android:exported="false" />
+        <activity
+            android:name="view.activity.ChangepasswordActivity"
+            android:exported="false" />
+        <activity
             android:name="view.activity.ActivityOrderDetail"
             android:exported="false"
             android:label="@string/title_activity_order_detail"
@@ -30,7 +36,6 @@
             android:exported="false"
             android:label="@string/title_activity_order_management"
             android:theme="@style/Theme.BookShop" />
-
         <activity
             android:name="view.activity.OrderBookActivity"
             android:exported="false" />

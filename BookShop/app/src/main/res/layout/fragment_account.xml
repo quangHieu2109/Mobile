@@ -117,8 +117,8 @@
                 android:layout_height="wrap_content"
                 android:text="Change password"
                 style="@style/AccountIn4Left"/>
-            <ImageView
-
+            <ImageButton
+                android:id="@+id/buttonChangePass"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_alignParentRight="true"
@@ -138,15 +138,16 @@
                 android:layout_height="wrap_content"
                 android:text="Change information"
                 style="@style/AccountIn4Left"/>
-            <ImageView
-
+            <ImageButton
+                android:id="@+id/buttonChangeInfor"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/back"
-                android:backgroundTint="@color/white" />
+                android:backgroundTint="@color/white"/>
+
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
