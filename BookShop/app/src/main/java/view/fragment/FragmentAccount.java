@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.bookshop.R;
@@ -21,6 +22,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import view.activity.ActivityOrderManagement;
+import view.activity.ChangeInforActivity;
+import view.activity.ChangepasswordActivity;
 import view.activity.HomeActivity;
 import view.activity.MainApp;
 
@@ -41,6 +44,7 @@ public class FragmentAccount extends Fragment {
     private String mParam2;
     TextView username, fullName, email, phoneNumber, gender;
     Button adminPage, logout;
+    ImageButton changePass, changeInfor;
     public FragmentAccount() {
         // Required empty public constructor
     }
@@ -82,6 +86,8 @@ public class FragmentAccount extends Fragment {
         email = view.findViewById(R.id.email);
         gender = view.findViewById(R.id.gender);
         phoneNumber = view.findViewById(R.id.phoneNumber);
+        changePass = view.findViewById(R.id.buttonChangePass);
+        changeInfor = view.findViewById(R.id.buttonChangeInfor);
         logout = view.findViewById(R.id.logout);
         adminPage = view.findViewById(R.id.adminPage);
 
@@ -114,6 +120,12 @@ public class FragmentAccount extends Fragment {
         });
         adminPage.setOnClickListener(v ->{
             startActivity(new Intent(getContext(), ActivityOrderManagement.class));
+        });
+        changePass.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), ChangepasswordActivity.class));
+        });
+        changeInfor.setOnClickListener(v ->{
+            startActivity(new Intent(getContext(), ChangeInforActivity.class));
         });
     }
 }
