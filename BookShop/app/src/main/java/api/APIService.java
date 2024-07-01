@@ -16,6 +16,7 @@ import request.AccuracyOTP;
 import request.AccuracyRequest;
 import request.AddressRequest;
 import request.ChangePasswordOTP;
+import request.CreateOrderRequest;
 import request.InfoShipRequest;
 import request.LoginRequest;
 import retrofit2.Call;
@@ -26,6 +27,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -96,15 +98,22 @@ public interface APIService {
     Call<AApi<Address>> addAddress(@Header("Authorization") String token, @Body AddressRequest addressRequest);
     @POST("getPriceAll")
     Call<List<InfoShip>> getInfoShip(@Header("token") String token, @Body InfoShipRequest infoShipRequest);
-
-    @POST("loginGoogleUser/token={token}")
-    Call<AApi<Login>> loginGoogle(@Path("token") String token);
+    @POST("User/changePassword")
+    Call<AApi<Object>> createOrder(@Header("Authorization") String token, @Body CreateOrderRequest createOrderRequest);
+    @POST("Cart/addCartItemPId={productId}")
+    Call<AApi<AddCartItemResponse>> addCartItemById(@Header("Authorization") String token, @Path("productId") int id, @Query("quantity") int quantity);
+    @POST("User/loginGoogleUser/token={token}")
+    Call<AApi<String>> loginGoogle(@Path("token") String token);
     @POST("User/sendOTP/email={email}")
     Call<AApi<Object>> sendOTP(@Path("email") String email);
     @POST("User/accuracyOTP")
     Call<AApi<Object>> accuracyOTP(@Body AccuracyRequest accuracyRequest);
     @POST("User/changePasswordByOTP")
     Call<AApi<Object>> changePasswordOTP(@Body ChangePasswordOTP changePasswordOTP);
-
-
+    @GET("Order/getOrderDetailByStatus/status={status}")
+    Call<AApi<List<OrderResponse>>> getOrdersByStatus(@Header("Authorization") String token, @Path("status") int status);
+    @PUT("Order/updateStatus/orderId={orderId}&status={status}")
+    Call<AApi<Object>> updateOrderStatus(@Header("Authorization") String token, @Path("orderId") long orderId, @Path("status") int status);
+    @GET("Order/getOrderDetailById/orderId={orderId}")
+    Call<AApi<OrderResponse>> getOrdersByOrderId(@Header("Authorization") String token, @Path("orderId") long orderId);
 }
