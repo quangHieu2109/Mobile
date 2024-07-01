@@ -20,6 +20,7 @@ import request.ChangePasswordOTP;
 import request.CreateOrderRequest;
 import request.InfoShipRequest;
 import request.LoginRequest;
+import request.RegisterRequest;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -115,6 +116,8 @@ public interface APIService {
     Call<AApi<Object>> changePassword(@Header("Authorization") String token, @Query("password") String password);
     @POST("User/changeInfor")
     Call<AApi<Object>> changeInfor(@Header("Authorization") String token, @Body ChangeInforRequest changeInforRequest);
+    @POST("User/register")
+    Call<AApi<Object>> register( @Body RegisterRequest registerRequest);
     @GET("Order/getOrderDetailByStatus/status={status}")
     Call<AApi<List<OrderResponse>>> getOrdersByStatus(@Header("Authorization") String token, @Path("status") int status);
     @PUT("Order/updateStatus/orderId={orderId}&status={status}")
