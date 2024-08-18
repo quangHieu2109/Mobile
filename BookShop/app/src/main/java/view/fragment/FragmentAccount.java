@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,8 +128,10 @@ public class FragmentAccount extends Fragment {
     }
     private void renderIn4(){
         APIService.apiService.getInfor("Bearer "+Login.getToken()).enqueue(new Callback<AApi<User>>() {
+
             @Override
             public void onResponse(Call<AApi<User>> call, Response<AApi<User>> response) {
+                Log.d("SUCCESS", Login.getToken());
                 User user = response.body().getData();
                 username.setText(((user.getUsername()!= null)?user.getUsername():""));
                 fullName.setText((user.getFullName()!= null)?user.getFullName():"");
