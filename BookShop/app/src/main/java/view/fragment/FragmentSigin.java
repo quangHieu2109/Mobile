@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import api.AApi;
 import api.APIService;
 import api.Login;
+import api.LoginResponse;
 import request.LoginRequest;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -146,7 +147,8 @@ public class FragmentSigin extends Fragment {
                 @Override
                 public void onResponse(Call<Login> call, Response<Login> response) {
                     if (response.isSuccessful()) {
-                        Login.setToken(response.body().getData());
+                        Login.setToken(response.body().getData().getAccessToken());
+                        Login.setRefreshToken(response.body().getData().getRefreshToken());
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         startActivity(intent);
                     }else{

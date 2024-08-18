@@ -14,6 +14,7 @@ import model.Province;
 import model.User;
 import model.Ward;
 import model.Wishlist;
+import okhttp3.OkHttpClient;
 import request.AccuracyRequest;
 import request.AddressRequest;
 import request.ChangeInforRequest;
@@ -36,12 +37,11 @@ import retrofit2.http.Query;
 
 public interface APIService {
 
+    OkHttpClient.Builder okHttp = new OkHttpClient.Builder();
+
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-    APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://103.118.29.65/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-            .create(APIService.class);
+    APIService apiService = new AuthApiClient("https://1bcd-2405-4802-93c2-aec1-4c71-98cf-ca08-7f47.ngrok-free.app/")
+            .getRetrofit().create(APIService.class);
     APIService viettheoAPI = new Retrofit.Builder()
             .baseUrl("https://partner.viettelpost.vn/v2/categories/")
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -54,6 +54,8 @@ public interface APIService {
             .create(APIService.class);
     @POST("user/login")
     Call<Login> login(@Body LoginRequest loginRequest);
+    @POST("user/refreshToken")
+    Call<Login> refreshTOken(@Query("refreshToken") String resfreshToken);
     @GET("user/getInfor")
     Call<AApi<User>> getInfor(@Header("Authorization") String token);
 
@@ -125,4 +127,5 @@ public interface APIService {
     Call<AApi<Object>> updateOrderStatus(@Header("Authorization") String token, @Path("orderId") long orderId, @Path("status") int status);
     @GET("Order/getOrderDetailById/orderId={orderId}")
     Call<AApi<OrderResponse>> getOrdersByOrderId(@Header("Authorization") String token, @Path("orderId") long orderId);
+
 }

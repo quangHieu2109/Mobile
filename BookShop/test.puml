@@ -1,0 +1,1084 @@
+@startuml
+class model.Address {
+- long id
+- long userId
+- String houseNumber
+- String province
+- String district
+- String ward
+~ int provinceId
+~ int districtId
+~ List<InfoShip> result
+~ Address address
+~ String token
+~ List<Province> provinces
+~ List<District> districts
++ long getId()
++ void setId(long)
++ long getUserId()
++ void setUserId(long)
++ String getHouseNumber()
++ void setHouseNumber(String)
++ String getProvince()
++ void setProvince(String)
++ String getDistrict()
++ void setDistrict(String)
++ String getWard()
++ void setWard(String)
++ String toString()
++ List<InfoShip> getInfoShip()
+}
+
+
+class loader.BookLoader {
++ {static} void loadBook(BookAdapter,BookType,Book)
+- {static} void callGetRecommended(BookAdapter)
+- {static} void callGetTopRelease(BookAdapter)
+- {static} void callGetTopCharts(BookAdapter)
+- {static} void callGetTopSeller(BookAdapter)
+- {static} void callGetBookPurchased(BookAdapter)
+- {static} void callGetBookWishlist(BookAdapter)
+- {static} void callGetBookSimilar(BookAdapter,Book)
+}
+
+class request.ChangeInforRequest {
+- String fullname
+- String phoneNumber
+- String email
+- int gender
++ String getFullname()
++ void setFullname(String)
++ String getPhoneNumber()
++ void setPhoneNumber(String)
++ String getEmail()
++ void setEmail(String)
++ int getGender()
++ void setGender(int)
+}
+
+
+class model.Ward {
+- int WARDS_ID
+- String WARDS_NAME
+- int DISTRICT_ID
++ int getWARDS_ID()
++ void setWARDS_ID(int)
++ String getWARDS_NAME()
++ void setWARDS_NAME(String)
++ int getDISTRICT_ID()
++ void setDISTRICT_ID(int)
++ String toString()
+}
+
+
+class view.fragment.FragmentCreateNewPassword {
+~ Button btnContinute
+~ EditText confirmPassword
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentCreateNewPassword newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListeners()
+}
+
+
+class view.activity.ChangepasswordActivity {
+~ EditText newPass
+~ Button buttonChangePass
+# void onCreate(Bundle)
+}
+
+
+class api.BookResponse {
+~ Book product
+~ double rating
+~ boolean isWishlist
++ void setWishlist(boolean)
++ boolean isWishlist()
++ Book getProduct()
++ void setProduct(Book)
++ double getRating()
++ void setRating(double)
+}
+
+
+class request.CreateOrderRequest {
+- int deliveryMethod
+- long deliveryPrice
+- List<Long> cartItemIds
++ int getDeliveryMethod()
++ void setDeliveryMethod(int)
++ long getDeliveryPrice()
++ void setDeliveryPrice(long)
++ List<Long> getCartItemIds()
++ void setCartItemIds(List<Long>)
+}
+
+
+class model.OrderStatus {
+- int status
+- String statusName
++ int getStatus()
++ void setStatus(int)
++ String getStatusName()
++ void setStatusName(String)
++ {static} OrderStatus getStatus(int)
++ {static} List<OrderStatus> generatedOrderStatus(int)
++ String toString()
+}
+
+
+enum api.vnpay.TypeAction {
++  SUCCESS
++  UNFINISHED
++  PENDING
++  FAILED
++  CHEAT
++  REFUND_REFUSED
++  UNKNOWN
+}
+
+class api.ViettheoResponse {
+~ int status
+~ boolean error
+~ String message
+~ List<T> data
++ boolean isError()
++ void setError(boolean)
++ String getMessage()
++ void setMessage(String)
++ List<T> getData()
++ void setData(List<T>)
+}
+
+
+class view.activity.MyAddressActivity {
+~ Button back
+~ RadioGroup listAddress
+~ Context context
+# void onCreate(Bundle)
+# void onActivityResult(int,int,Intent)
+- void setOnClickListener()
+- void getAddress()
+}
+
+
+class view.activity.ChangeInforActivity {
+~ EditText fullname
+~ Button buttonBack
+~ RadioGroup radioGroupGender
+~ RadioButton radioMale
+~ int gender
++ boolean isValidPhoneNumber(String)
++ boolean isValidEmail(String)
++ boolean isValidName(String)
+# void onCreate(Bundle)
+}
+
+
+class loader.OrderLoader {
++ {static} void loadOrder(OrderAdapter,int)
+}
+
+class model.User {
+~ long id
+~ String phoneNumber
+~ int gender
+~ String role
+~ Timestamp createdAt
+~ String email
+~ String fullName
+~ String username
+~ String password
++ long getId()
++ void setId(long)
++ String getPhoneNumber()
++ void setPhoneNumber(String)
++ int getGender()
++ void setGender(int)
++ String getRole()
++ void setRole(String)
++ Timestamp getCreatedAt()
++ void setCreatedAt(Timestamp)
++ String getEmail()
++ void setEmail(String)
++ String getFullName()
++ void setFullName(String)
++ String getUsername()
++ void setUsername(String)
++ String getPassword()
++ void setPassword(String)
+}
+
+
+class adapter.BookBuyAdapter {
+- List<Book> data
+- List<Integer> quantities
++ BookBuyAdapter.BookViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(BookBuyAdapter.BookViewHolder,int)
++ void setData(List<Book>,List<Integer>)
++ int getItemCount()
+}
+
+
+class adapter.BookBuyAdapter$BookViewHolder {
+- ImageView imgBook
+- TextView price
+- TextView titleBook
+- TextView quantity
+}
+
+class view.fragment.FragmentDiscover {
+~ BookAdapter bookAdapterSelling
+~ BookAdapter bookAdapterCharts
+~ BookAdapter bookAdapterRelease
+- RecyclerView rcv_top_selling
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentDiscover newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+
+class view.activity.MainApp {
+~ Button btnLoginByGoogle
+# void onCreate(Bundle)
++ void setOnClickLogin()
+}
+
+
+class api.InfoShip {
+- String MA_DV_CHINH
+- String TEN_DICHVU
+- double GIA_CUOC
+- String THOI_GIAN
+- int EXCHANGE_WEIGHT
+- List<ExtraService> EXTRA_SERVICE
++ String getMA_DV_CHINH()
++ void setMA_DV_CHINH(String)
++ String getTEN_DICHVU()
++ void setTEN_DICHVU(String)
++ double getGIA_CUOC()
++ void setGIA_CUOC(double)
++ String getTHOI_GIAN()
++ void setTHOI_GIAN(String)
++ int getEXCHANGE_WEIGHT()
++ void setEXCHANGE_WEIGHT(int)
++ List<ExtraService> getEXTRA_SERVICE()
++ void setEXTRA_SERVICE(List<ExtraService>)
++ String toString()
+}
+
+
+class api.ExtraService {
+- String SERVICE_CODE
+- String SERVICE_NAME
+- String DESCRIPTION
++ String toString()
+}
+
+
+class request.LoginRequest {
+- String username
+- String password
+}
+
+class api.Login {
+- {static} String token
++ {static} void setToken(String)
++ {static} String getToken()
+}
+
+
+class view.fragment.FragmentWishlist {
+~ RecyclerView rcv_wishlist
+~ int position
+~ BookAdapter bookAdapter
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentWishlist newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setSwipeDeleteBook()
+}
+
+
+class api.AApi {
+- boolean status
+- String message
+- T data
++ boolean isStatus()
++ void setStatus(boolean)
++ String getMessage()
++ void setMessage(String)
++ T getData()
++ void setData(T)
+}
+
+
+class model.Wishlist {
+- long id
+- long productId
+- long userId
+- Timestamp createdAt
++ long getId()
++ void setId(long)
++ long getProductId()
++ void setProductId(long)
++ long getUserId()
++ void setUserId(long)
++ Timestamp getCreatedAt()
++ void setCreatedAt(Timestamp)
+}
+
+
+class model.Province {
+- int PROVINCE_ID
+- String PROVINCE_CODE
+- String PROVINCE_NAME
++ int getPROVINCE_ID()
++ void setPROVINCE_ID(int)
++ String getPROVINCE_CODE()
++ void setPROVINCE_CODE(String)
++ String getPROVINCE_NAME()
++ void setPROVINCE_NAME(String)
++ String toString()
+}
+
+
+class view.fragment.FragmentHome {
+~ ImageButton btn_notification
+~ BookAdapter bookAdaperAllBook
+~ BookAdapter bookAdapterRecommended
+~ BookAdapter bookAdapterPurchased
+~ BookAdapter bookAdapterWishlist
+- RecyclerView rcv_all_book
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentHome newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListeners()
+}
+
+
+class view.activity.HomeActivity {
+~ LinearLayout bottomSheet
+~ BottomNavigationView bottomNavigationView
+# void onCreate(Bundle)
++ void sendData(BookResponse)
++ void changeStateBottomSheet(Book)
++ void showBottomSheetDialogFragment(Book)
+}
+
+
+class view.activity.InfoShipActivity {
+~ Button back
+~ RadioGroup listInfoShip
+~ Context context
+~ String token
+~ ProgressBar progress_bar
+# void onCreate(Bundle)
+- void setOnClickListener()
+}
+
+
+class api.vnpay.VNPaySDK {
++ {static} void openSDK(Context,double)
++ {static} String getMessage(TypeAction)
+}
+
+class view.fragment.FragmentSearch {
+~ AutoCompleteTextView autoCompleteTextView
+~ Button btn_back
+~ ISendData iSendData
+~ ImageButton btn_search
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ void onAttach(Context)
++ {static} FragmentSearch newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListeners()
+- List<BookResponse> getData()
++ void senDataBookToDetail(BookResponse)
+}
+
+
+interface view.fragment.FragmentSearch$ISendData {
+~ void sendData(BookResponse)
+}
+
+class view.fragment.OrderFragment {
+~ List<Book> book
+~ List<Integer> quantity
+~ RecyclerView recyclerViewBook
+~ TextView price_ship
+~ Button btn_order
+~ ImageButton showAddresses
+~ FrameLayout frameShippingMethod
+~ RelativeLayout voucher_layout
+~ int GET_ADDRESS
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} OrderFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setClickListener()
+- void setData()
++ long getPriceShip()
+}
+
+
+class view.fragment.FragmentBookDetail {
+~ BookResponse book
+~ ImageView img_book
+~ BookAdapter bookAdapterSimilar
+~ RecyclerView rcv_similar
+~ ImageButton btn_wishlist
+~ TextView counterReview
+~ Button btn_buy
+~ ImageButton showAddresses
+~ ProgressBar star_1
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentBookDetail newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void receiveData(BookResponse)
++ void refreshBookDetail(int)
+- void setBtnClickListeners()
+- void deleteWishlist()
+- void addWishlist()
+}
+
+
+class view.fragment.FramentConfirmMail {
+~ Button btnConfirmMail
+~ OTPView otp
+~ String otpInput
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FramentConfirmMail newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListeners()
+}
+
+
+class model.OrderItemResponse {
+- long id
+- long orderId
+- Book product
+- double price
+- int discount
+- int quantity
+- Timestamp createdAt
+- Timestamp updatedAt
++ long getId()
++ void setId(long)
++ long getOrderId()
++ void setOrderId(long)
++ Book getProduct()
++ void setProduct(Book)
++ double getPrice()
++ void setPrice(double)
++ int getDiscount()
++ void setDiscount(int)
++ int getQuantity()
++ void setQuantity(int)
++ Timestamp getCreatedAt()
++ void setCreatedAt(Timestamp)
++ Timestamp getUpdatedAt()
++ void setUpdatedAt(Timestamp)
+}
+
+
+class request.InfoShipRequest {
+- String SENDER_PROVINCE
+- String SENDER_DISTRICT
+- String RECEIVER_PROVINCE
+- String RECEIVER_DISTRICT
+- String PRODUCT_TYPE
+- double PRODUCT_WEIGHT
+- int MONEY_COLLECTION
+- int PRODUCT_PRICE
+- int TYPE
+}
+
+class view.fragment.ShippingFragment {
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} ShippingFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+
+class view.fragment.FragmentAccount {
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
+~ TextView username
+~ Button adminPage
+~ ImageButton changePass
++ {static} FragmentAccount newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onActivityResult(int,int,Intent)
+- void setOnclickListener()
+- void renderIn4()
+}
+
+
+class request.AccuracyOTP {
+- {static} String email
+- {static} String otp
++ {static} String getEmail()
++ {static} void setEmail(String)
++ {static} String getOtp()
++ {static} void setOtp(String)
+}
+
+
+class view.activity.RegisterActivity {
+~ EditText username
+~ Button buttonBack
+- boolean isValidUsername(String)
+- boolean isValidPassword(String)
+- boolean isValidEmail(String)
+- boolean isValidFullname(String)
+# void onCreate(Bundle)
+}
+
+
+class view.activity.AddAddressActivity {
+- String token
+~ Spinner province
+~ TextView province_name
+~ Button btnAddAddress
+~ EditText houseNumberEdt
+~ boolean result
+~ Context context
+# void onCreate(Bundle)
+- void setOnClickListener()
+}
+
+
+class model.AddCartItemResponse {
+- long id
+- long cartId
+- int productId
+- int quantity
+- Timestamp createdAt
+- Timestamp updatedAt
++ long getId()
++ void setId(long)
++ long getCartId()
++ void setCartId(long)
++ int getProductId()
++ void setProductId(int)
++ int getQuantity()
++ void setQuantity(int)
++ Timestamp getCreatedAt()
++ void setCreatedAt(Timestamp)
++ Timestamp getUpdatedAt()
++ void setUpdatedAt(Timestamp)
+}
+
+
+class model.District {
+- int DISTRICT_ID
+- String DISTRICT_VALUE
+- String DISTRICT_NAME
+- int PROVINCE_ID
++ int getDISTRICT_ID()
++ void setDISTRICT_ID(int)
++ String getDISTRICT_VALUE()
++ void setDISTRICT_VALUE(String)
++ String getDISTRICT_NAME()
++ void setDISTRICT_NAME(String)
++ int getPROVINCE_ID()
++ void setPROVINCE_ID(int)
++ String toString()
+}
+
+
+class view.fragment.FragmentBottomSheet {
+- TextView name_item
+- ImageView img_item
+- ImageButton btn_minus
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
+~ Book book
++ {static} FragmentBottomSheet newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListener()
+- void setData(Book)
+}
+
+
+class request.RegisterRequest {
+- String username
+- String password
+- String email
+- String fullname
+}
+
+class view.activity.LoginActivity {
+~ Button btnBackMain
+~ Context context
+# void onCreate(Bundle)
+- void setOnClickBackMain()
+# void onActivityResult(int,int,Intent)
+- void handleSignInResult(Task<GoogleSignInAccount>)
+}
+
+
+class view.activity.ActivityOrderDetail {
+~ OrderItemAdapter orderItemAdapter
+~ TextView orderId
+~ RecyclerView rcv_list_order_item
+~ Button backOrderDetail
+# void onCreate(Bundle)
+}
+
+
+interface api.vnpay.VNPayCallBack {
+~ void action(TypeAction)
+}
+
+class view.activity.OrderBookActivity {
+~ FrameLayout fragment_container_order
+~ Button btn_back
+~ ImageButton showAddresses
+~ Context context
+~ TextView method_ship
+~ int GET_ADDRESS
+~ List<Book> book
+~ List<Integer> quantities
+~ OrderFragment orderFragment
+# void onCreate(Bundle)
++ void setClickListener()
++ void action(TypeAction)
++ List<Long> addCartItems()
+# void onActivityResult(int,int,Intent)
+- void setData()
+}
+
+
+enum loader.BookType {
++  RECOMMENDED
++  TOP_SELLER
++  WISHLIST
++  PURCHASED
++  TOP_RELEASES
++  SIMILAR
++  CHARTS
+}
+
+class view.fragment.AddressFragment {
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} AddressFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+
+class model.OrderResponse {
+- long id
+- User user
+- int status
+- int deliveryMethod
+- double deliveryPrice
+- Timestamp createdAt
+- Timestamp updatedAt
+- List<OrderItemResponse> items
++ long getId()
++ void setId(long)
++ User getUser()
++ void setUser(User)
++ int getStatus()
++ void setStatus(int)
++ int getDeliveryMethod()
++ void setDeliveryMethod(int)
++ double getDeliveryPrice()
++ void setDeliveryPrice(double)
++ Timestamp getCreatedAt()
++ void setCreatedAt(Timestamp)
++ Timestamp getUpdatedAt()
++ void setUpdatedAt(Timestamp)
++ List<OrderItemResponse> getItems()
++ void setItems(List<OrderItemResponse>)
++ double getTotalPrice()
+}
+
+
+class adapter.BookWishlistAdapter {
++ BookViewHolder onCreateViewHolder(ViewGroup,int)
+}
+
+class adapter.OrderAdapter {
+~ Context context
+~ List<OrderResponse> data
+~ int newStatus
++ OrderViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(OrderViewHolder,int)
++ int getItemCount()
++ List<OrderResponse> getData()
++ void setData(List<OrderResponse>)
++ void addData(OrderResponse)
++ void addData(List<OrderResponse>)
++ void deleteOrder(int)
+}
+
+
+class adapter.OrderAdapter$OrderViewHolder {
+~ TextView orderId
+~ CardView layout_item_order
+~ Spinner status
+~ Button detail
+}
+
+class view.fragment.FragmentSigin {
+~ EditText edtEmail
+~ GoogleSignInOptions gso
+~ ActivityResultLauncher<Intent> someActivityResultLauncher
+~ GoogleSignInClient signInClient
+~ Button btnForgetPass
+~ ImageButton btnLoginByGoogle
+~ ActivityResultLauncher<IntentSenderRequest> intentSender
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentSigin newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListeners()
+- void handleSignInResult(Task<GoogleSignInAccount>)
+}
+
+
+class adapter.SearchBookAdapter {
+~ List<BookResponse> data
++ View getView(int,View,ViewGroup)
++ Filter getFilter()
+}
+
+
+class request.ChangePasswordOTP {
+- String email
+- String password
++ String getEmail()
++ void setEmail(String)
++ String getPassword()
++ void setPassword(String)
+}
+
+
+class view.fragment.FragmentForgetPass {
+~ Button btnContinute
+~ EditText email
+~ ProgressBar progress_bar
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentForgetPass newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListeners()
+}
+
+
+class view.fragment.VoucherFragment {
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} VoucherFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+
+class api.vnpay.RedirectUrl {
++ {static} String URL_REDIRECT
+}
+
+class view.fragment.FragmentNotification {
+~ Button btn_back
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} FragmentNotification newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setBtnClickListeners()
+}
+
+
+class adapter.BookAdapter {
+~ List<BookResponse> data
+~ Context context
++ BookViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(BookViewHolder,int)
++ int getItemCount()
++ List<BookResponse> getData()
++ void setData(List<BookResponse>)
++ void addData(BookResponse)
++ void addData(List<BookResponse>)
++ void deleteBook(int)
+}
+
+
+class adapter.BookAdapter$BookViewHolder {
+- ImageView imgBook
+- TextView price
+- TextView titleBook
+- CardView cardView
+}
+
+class request.AddressRequest {
+- String houseNumber
+- String province
+- String district
+- String ward
++ String getHouseNumber()
++ void setHouseNumber(String)
++ String getProvince()
++ void setProvince(String)
++ String getDistrict()
++ void setDistrict(String)
++ String getWard()
++ void setWard(String)
+}
+
+
+class adapter.OrderItemAdapter {
+- Context context
+- List<OrderItemResponse> data
++ OrderItemViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(OrderItemViewHolder,int)
++ void setData(List<OrderItemResponse>)
++ void addData(OrderItemResponse)
++ void addData(List<OrderItemResponse>)
++ void removeData(int)
++ int getItemCount()
+}
+
+
+class adapter.OrderItemAdapter$OrderItemViewHolder {
+~ ImageView img_book
+~ TextView book_name
+~ CardView layout
+}
+
+class request.AccuracyRequest {
+~ String email
+~ String otp
++ String toString()
+}
+
+
+class view.activity.ActivityOrderManagement {
+~ BottomNavigationView bottomNavigationView
+~ OrderAdapter orderAdapter
+~ RecyclerView list_order
+~ Button backOrderManegement
+~ TextView inforManagement
+# void onCreate(Bundle)
+- void setOnclickListener()
+}
+
+
+interface api.APIService {
+~ {static} Gson gson
+~ {static} APIService apiService
+~ {static} APIService viettheoAPI
+~ {static} APIService getInfoShip
+~ Call<Login> login(LoginRequest)
+~ Call<AApi<User>> getInfor(String)
+~ Call<AApi<List<BookResponse>>> getSimilarBook(long)
+~ Call<AApi<List<BookResponse>>> getAllBook()
+~ Call<AApi<Wishlist>> addWishList(String,int)
+~ Call<AApi<List<BookResponse>>> searchBook(String)
+~ Call<AApi<List<BookResponse>>> getWishList(String)
+~ Call<AApi<List<BookResponse>>> getPerchased(String)
+~ Call<AApi<List<BookResponse>>> getTopSeller()
+~ Call<AApi<List<BookResponse>>> getTopCharts()
+~ Call<AApi<List<BookResponse>>> getTopRelease()
+~ Call<AApi<List<BookResponse>>> getRecommended(long)
+~ Call<AApi<String>> deleteWishList(String,int)
+~ Call<AApi<BookResponse>> getBookById(String,int)
+~ Call<ViettheoResponse<Province>> getAllProvince(String)
+~ Call<ViettheoResponse<Province>> getProvince(String,int)
+~ Call<ViettheoResponse<District>> getDistrict(String,int)
+~ Call<ViettheoResponse<Ward>> getWard(String,int)
+~ Call<AApi<List<Address>>> getAddress(String)
+~ Call<AApi<Address>> addAddress(String,AddressRequest)
+~ Call<List<InfoShip>> getInfoShip(String,InfoShipRequest)
+~ Call<AApi<Object>> createOrder(String,CreateOrderRequest)
+~ Call<AApi<AddCartItemResponse>> addCartItemById(String,int,int)
+~ Call<AApi<String>> loginGoogle(String)
+~ Call<AApi<Object>> sendOTP(String)
+~ Call<AApi<Object>> accuracyOTP(AccuracyRequest)
+~ Call<AApi<Object>> changePasswordOTP(ChangePasswordOTP)
+~ Call<AApi<Object>> changePassword(String,String)
+~ Call<AApi<Object>> changeInfor(String,ChangeInforRequest)
+~ Call<AApi<Object>> register(RegisterRequest)
+~ Call<AApi<List<OrderResponse>>> getOrdersByStatus(String,int)
+~ Call<AApi<Object>> updateOrderStatus(String,long,int)
+~ Call<AApi<OrderResponse>> getOrdersByOrderId(String,long)
+}
+
+
+class model.Book {
+- long id
+- String name
+- double price
+- double discount
+- long quantity
+- String imageName
+- String author
+- String publisher
+- int yearPublishing
+- int shop
+- String description
+~ Timestamp createdAt
+~ Timestamp updatedAt
+~ Timestamp endsAt
++ long getId()
++ void setId(long)
++ String getName()
++ void setName(String)
++ double getPrice()
++ void setPrice(double)
++ double getDiscount()
++ void setDiscount(double)
++ long getQuantity()
++ void setQuantity(long)
++ String getImageName()
++ void setImageName(String)
++ String getAuthor()
++ void setAuthor(String)
++ String getPublisher()
++ void setPublisher(String)
++ int getYearPublishing()
++ void setYearPublishing(int)
++ int getShop()
++ void setShop(int)
++ String getDescription()
++ void setDescription(String)
++ Timestamp getCreatedAt()
++ void setCreatedAt(Timestamp)
++ Timestamp getUpdatedAt()
++ void setUpdatedAt(Timestamp)
++ Timestamp getEndsAt()
++ void setEndsAt(Timestamp)
+}
+
+
+class view.activity.VNPayActivity {
+~ WebView webView
+~ {static} VNPayCallBack vnPayCallBack
+~ String url
+~ String tmn_code
+~ String scheme
+~ String vnp_Amount
+~ boolean is_sandbox
+~ int timeExpireM
+# void onCreate(Bundle)
++ {static} void setSdkCompletedCallback(VNPayCallBack)
+- String createURL()
+- {static} String generateHmacSHA512(String,String)
+- {static} String bytesToHex(byte[])
+- {static} String getIPAddress(Context)
+- {static} String getRandomNumber(int)
+}
+
+
+
+
+java.io.Serializable <|.. model.Address
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentCreateNewPassword
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.ChangepasswordActivity
+java.io.Serializable <|.. api.BookResponse
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.MyAddressActivity
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.ChangeInforActivity
+adapter.Adapter <|-- adapter.BookBuyAdapter
+adapter.BookBuyAdapter +.. adapter.BookBuyAdapter$BookViewHolder
+adapter.ViewHolder <|-- adapter.BookBuyAdapter$BookViewHolder
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentDiscover
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.MainApp
+java.io.Serializable <|.. api.InfoShip
+java.io.Serializable <|.. api.ExtraService
+api.AApi <|-- api.Login
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentWishlist
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentHome
+view.activity.ISendData <|.. view.activity.HomeActivity
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.HomeActivity
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.InfoShipActivity
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentSearch
+view.fragment.FragmentSearch +.. view.fragment.FragmentSearch$ISendData
+androidx.fragment.app.Fragment <|-- view.fragment.OrderFragment
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentBookDetail
+androidx.fragment.app.Fragment <|-- view.fragment.FramentConfirmMail
+androidx.fragment.app.Fragment <|-- view.fragment.ShippingFragment
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentAccount
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.RegisterActivity
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.AddAddressActivity
+com.google.android.material.bottomsheet.BottomSheetDialogFragment <|-- view.fragment.FragmentBottomSheet
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.LoginActivity
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.ActivityOrderDetail
+api.vnpay.VNPayCallBack <|.. view.activity.OrderBookActivity
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.OrderBookActivity
+androidx.fragment.app.Fragment <|-- view.fragment.AddressFragment
+adapter.BookAdapter <|-- adapter.BookWishlistAdapter
+adapter.Adapter <|-- adapter.OrderAdapter
+adapter.OrderAdapter +.. adapter.OrderAdapter$OrderViewHolder
+adapter.ViewHolder <|-- adapter.OrderAdapter$OrderViewHolder
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentSigin
+android.widget.ArrayAdapter <|-- adapter.SearchBookAdapter
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentForgetPass
+androidx.fragment.app.Fragment <|-- view.fragment.VoucherFragment
+androidx.fragment.app.Fragment <|-- view.fragment.FragmentNotification
+adapter.Adapter <|-- adapter.BookAdapter
+adapter.BookAdapter +.. adapter.BookAdapter$BookViewHolder
+adapter.ViewHolder <|-- adapter.BookAdapter$BookViewHolder
+adapter.Adapter <|-- adapter.OrderItemAdapter
+adapter.OrderItemAdapter +.. adapter.OrderItemAdapter$OrderItemViewHolder
+adapter.ViewHolder <|-- adapter.OrderItemAdapter$OrderItemViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.ActivityOrderManagement
+java.io.Serializable <|.. model.Book
+androidx.appcompat.app.AppCompatActivity <|-- view.activity.VNPayActivity
+@enduml
