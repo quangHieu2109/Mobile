@@ -99,6 +99,7 @@ public class ChangeInforActivity extends AppCompatActivity {
                         public void onResponse(Call<AApi<Object>> call, Response<AApi<Object>> response) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(ChangeInforActivity.this, "Thay đổi thông tin thành công", Toast.LENGTH_SHORT).show();
+                                    setResult(RESULT_OK);
                                     finish();
                                 });
                         }

@@ -1,7 +1,6 @@
 package adapter;
 
 import android.content.Context;
-import android.service.autofill.Validators;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import api.OrderItemResponse;
-import api.OrderResponse;
+import model.OrderItemResponse;
 
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {

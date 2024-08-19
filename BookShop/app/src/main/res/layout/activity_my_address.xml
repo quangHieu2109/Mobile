@@ -34,13 +34,17 @@
            android:layout_marginLeft="10dp"
            android:contentDescription=""/>
    </LinearLayout>
-    <RadioGroup
-        android:id="@+id/listAdress"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="500dp">
+        <RadioGroup
+            android:id="@+id/listAdress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </RadioGroup>
+        </RadioGroup>
+    </ScrollView>
 
         <Button
             android:id="@+id/btnAddAddress"

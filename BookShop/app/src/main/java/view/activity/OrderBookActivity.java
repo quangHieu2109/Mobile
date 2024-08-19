@@ -25,7 +25,7 @@ import java.util.List;
 
 import api.AApi;
 import api.APIService;
-import api.AddCartItemResponse;
+import model.AddCartItemResponse;
 import api.InfoShip;
 import api.Login;
 import api.vnpay.TypeAction;
@@ -37,7 +37,6 @@ import request.CreateOrderRequest;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import view.fragment.FragmentHome;
 import view.fragment.OrderFragment;
 
 public class OrderBookActivity extends AppCompatActivity implements VNPayCallBack {

@@ -1,8 +1,12 @@
 package view.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -91,6 +95,37 @@ public class FragmentAccount extends Fragment {
         logout = view.findViewById(R.id.logout);
         adminPage = view.findViewById(R.id.adminPage);
 
+        renderIn4();
+        setOnclickListener();
+        return view;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 127 && resultCode==RESULT_OK){
+
+            renderIn4();
+        }
+    }
+
+    private void setOnclickListener(){
+        logout.setOnClickListener(v ->{
+            Login.setToken("");
+            startActivity(new Intent(getContext(), MainApp.class));
+        });
+        adminPage.setOnClickListener(v ->{
+            startActivity(new Intent(getContext(), ActivityOrderManagement.class));
+        });
+        changePass.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), ChangepasswordActivity.class));
+        });
+        changeInfor.setOnClickListener(v ->{
+            startActivityForResult(new Intent(getContext(), ChangeInforActivity.class), 127);
+        });
+    }
+    private void renderIn4(){
         APIService.apiService.getInfor("Bearer "+Login.getToken()).enqueue(new Callback<AApi<User>>() {
             @Override
             public void onResponse(Call<AApi<User>> call, Response<AApi<User>> response) {
@@ -109,23 +144,6 @@ public class FragmentAccount extends Fragment {
             public void onFailure(Call<AApi<User>> call, Throwable t) {
 
             }
-        });
-        setOnclickListener();
-        return view;
-    }
-    private void setOnclickListener(){
-        logout.setOnClickListener(v ->{
-            Login.setToken("");
-            startActivity(new Intent(getContext(), MainApp.class));
-        });
-        adminPage.setOnClickListener(v ->{
-            startActivity(new Intent(getContext(), ActivityOrderManagement.class));
-        });
-        changePass.setOnClickListener(v -> {
-            startActivity(new Intent(getContext(), ChangepasswordActivity.class));
-        });
-        changeInfor.setOnClickListener(v ->{
-            startActivity(new Intent(getContext(), ChangeInforActivity.class));
         });
     }
 }
