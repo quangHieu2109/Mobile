@@ -40,6 +40,7 @@ public interface APIService {
     OkHttpClient.Builder okHttp = new OkHttpClient.Builder();
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+
     APIService apiService = new AuthApiClient("https://1bcd-2405-4802-93c2-aec1-4c71-98cf-ca08-7f47.ngrok-free.app/")
             .getRetrofit().create(APIService.class);
     APIService viettheoAPI = new Retrofit.Builder()

@@ -1,13 +1,16 @@
 package api;
 
-public class Login extends AApi<LoginResponse>{
+
+public class Login extends AApi<LoginObject>{
+
     private static String token="";
     private static String refreshToken="";
 
 
-    public Login(boolean status, String message, LoginResponse data) {
+    public Login(boolean status, String message, LoginObject data) {
         super(status, message, data);
     }
+
 
     public static void setToken(String _token){
         token = _token;
