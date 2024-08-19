@@ -148,7 +148,9 @@ public class FragmentSigin extends Fragment {
                 public void onResponse(Call<Login> call, Response<Login> response) {
                     if (response.isSuccessful()) {
                         Login.setToken(response.body().getData().getAccessToken());
+
                         Login.setRefreshToken(response.body().getData().getRefreshToken());
+
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         startActivity(intent);
                     }else{
