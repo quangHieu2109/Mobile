@@ -41,8 +41,9 @@ public interface APIService {
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
-    APIService apiService = new AuthApiClient("https://1bcd-2405-4802-93c2-aec1-4c71-98cf-ca08-7f47.ngrok-free.app/")
+    APIService apiService = new AuthApiClient("https://9298-2405-4802-93c2-aec1-e527-1ddc-9aed-b48.ngrok-free.app/")
             .getRetrofit().create(APIService.class);
+
     APIService viettheoAPI = new Retrofit.Builder()
             .baseUrl("https://partner.viettelpost.vn/v2/categories/")
             .addConverterFactory(GsonConverterFactory.create(gson))
