@@ -74,6 +74,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.navigation:navigation-fragment:2.6.0")
     implementation("androidx.navigation:navigation-ui:2.6.0")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.5")
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.0")
 
 //    implementation ("com.android.support:support-v4:28.0.0")
     testImplementation("junit:junit:4.13.2")

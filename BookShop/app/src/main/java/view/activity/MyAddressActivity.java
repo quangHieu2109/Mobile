@@ -4,6 +4,7 @@ package view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Button;
@@ -83,8 +84,7 @@ public class MyAddressActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AApi<List<Address>>> call, Response<AApi<List<Address>>> response) {
                 List<Address> addresses = response.body().getData();
-                if(addresses.size() >0){
-
+                if(addresses.size() > 0){
                     listAddress.setGravity(Gravity.CENTER);
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                             RadioGroup.LayoutParams.MATCH_PARENT,
@@ -93,21 +93,18 @@ public class MyAddressActivity extends AppCompatActivity {
                     int i=0;
                     for(Address address: addresses){
                         RadioButton radioButton = new RadioButton(context);
-                        if(i ==0){
-
-                             radioButton.setSelected(true);
-                             i++;
+                        if(i == 0){
+                            radioButton.setSelected(true);
+                            i++;
                         }
-                        radioButton.setTextColor(getResources().getColor(R.color.black));
-                        radioButton.setBackgroundColor(getResources().getColor(R.color.DDD));
+                        radioButton.setTextColor(Color.BLACK); // Use the Color class directly
+                        radioButton.setBackgroundColor(Color.parseColor("#DDDDDD")); // Use Color.parseColor() to set the background color
                         radioButton.setText(address.toString());
                         radioButton.setTag(address);
-                        radioButton.setPadding(20,20,20,20);
-                        params.width = (int) (listAddress.getWidth() * 0.7); // 70% chiều rộng của RadioButton
-                        params.setMargins(5, 10, 5,10);
+                        radioButton.setPadding(20, 20, 20, 20);
+                        params.width = (int) (listAddress.getWidth() * 0.85);
+                        params.setMargins(10, 10, 10, 10);
                         radioButton.setLayoutParams(params);
-
-//                    radioButton.setMa;
                         listAddress.addView(radioButton);
                     }
                 }
